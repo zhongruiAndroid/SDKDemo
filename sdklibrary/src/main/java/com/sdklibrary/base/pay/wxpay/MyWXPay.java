@@ -10,7 +10,6 @@ import android.widget.Toast;
 import com.github.rxbus.MyConsumer;
 import com.github.rxbus.MyDisposable;
 import com.github.rxbus.MyRxBus;
-import com.github.rxbus.rxjava.MyFlowableEmitter;
 import com.github.rxbus.rxjava.MyFlowableSubscriber;
 import com.github.rxbus.rxjava.MyRx;
 import com.sdklibrary.base.WXEvent;
@@ -32,6 +31,7 @@ import java.util.Random;
 
 import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
+import io.reactivex.FlowableEmitter;
 
 public class MyWXPay {
     /*
@@ -87,7 +87,7 @@ public class MyWXPay {
                 }else{
                     MyRx.start(new MyFlowableSubscriber<Map<String, String>>() {
                         @Override
-                        public void subscribe(@NonNull MyFlowableEmitter<Map<String, String>> flowableEmitter) {
+                        public void subscribe(@NonNull FlowableEmitter<Map<String, String>> flowableEmitter) {
                             String url = String.format("https://api.mch.weixin.qq.com/pay/unifiedorder");
                             String entity = genProductArgs();
                             byte[] buf = Util.httpPost(url, entity);
@@ -98,7 +98,7 @@ public class MyWXPay {
                             flowableEmitter.onComplete();
                         }
                         @Override
-                        public void onMyNext(Map<String, String> result) {
+                        public void onNext(Map<String, String> result) {
                             if(result.get("return_code")!=null&&"FAIL".equals(result.get("return_code"))){
                                 Toast.makeText(mContext,"微信支付订单生成失败",Toast.LENGTH_SHORT).show();
                                 return;
@@ -111,8 +111,8 @@ public class MyWXPay {
                             requestPay(result.get("prepay_id"),callback);
                         }
                         @Override
-                        public void onMyError(Throwable t) {
-                            super.onMyError(t);
+                        public void onError(Throwable t) {
+                            super.onError(t);
                             if(callback!=null){
                                 callback.payFail();
                             }

@@ -5,7 +5,7 @@ import com.tencent.tauth.UiError;
 
 import org.json.JSONObject;
 
-public abstract class QQLoginListener implements IUiListener {
+public abstract class MyQQLoginListener implements IUiListener {
     public void doResult(Object response) {
     }
     public abstract void doComplete(String response);

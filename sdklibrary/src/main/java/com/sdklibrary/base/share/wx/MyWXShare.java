@@ -9,7 +9,6 @@ import android.widget.Toast;
 import com.github.rxbus.MyConsumer;
 import com.github.rxbus.MyDisposable;
 import com.github.rxbus.MyRxBus;
-import com.github.rxbus.rxjava.MyFlowableEmitter;
 import com.github.rxbus.rxjava.MyFlowableSubscriber;
 import com.github.rxbus.rxjava.MyRx;
 import com.google.gson.Gson;
@@ -43,6 +42,7 @@ import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.protocol.HTTP;
 import cz.msebera.android.httpclient.util.EntityUtils;
+import io.reactivex.FlowableEmitter;
 
 /**
  * Created by Administrator on 2018/3/9.
@@ -459,7 +459,7 @@ public class MyWXShare extends BaseShare {
     private void getUserInfo(final String authCode,final MyWXLoginCallback callback) {
        MyRx.start(new MyFlowableSubscriber<WXUserInfo>() {
            @Override
-           public void subscribe(MyFlowableEmitter<WXUserInfo> myFlowableEmitter) {
+           public void subscribe(FlowableEmitter<WXUserInfo> myFlowableEmitter) {
                Map<String,String>map=new HashMap<String,String>();
                map.put("appid",MyWXShare.getAppId());
                map.put("secret",MyWXShare.getAppSecret());
@@ -490,13 +490,15 @@ public class MyWXShare extends BaseShare {
                    e.printStackTrace();
                }
            }
+
            @Override
-           public void onMyNext(WXUserInfo userInfo) {
+           public void onNext(WXUserInfo userInfo) {
                callback.loginSuccess(userInfo);
            }
+
            @Override
-           public void onMyError(Throwable t) {
-               super.onMyError(t);
+           public void onError(Throwable t) {
+               super.onError(t);
                callback.loginFail();
            }
        });

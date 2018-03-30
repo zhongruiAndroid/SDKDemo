@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.github.rxbus.rxjava.MyFlowableEmitter;
 import com.github.rxbus.rxjava.MyFlowableSubscriber;
 import com.github.rxbus.rxjava.MyRx;
 import com.google.gson.Gson;
@@ -42,6 +41,7 @@ import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.protocol.HTTP;
 import cz.msebera.android.httpclient.util.EntityUtils;
+import io.reactivex.FlowableEmitter;
 
 import static cz.msebera.android.httpclient.conn.ssl.SSLConnectionSocketFactory.TAG;
 
@@ -50,6 +50,7 @@ import static cz.msebera.android.httpclient.conn.ssl.SSLConnectionSocketFactory.
  */
 
 public class MyQQShare extends BaseShare{
+
     /*
     *
     * qq分享配置onActivityResult
@@ -114,10 +115,10 @@ public class MyQQShare extends BaseShare{
 
 
     /*******************************************************分享***********************************************************************/
-    public void QZone(QQShareHelper.QQWebHelper helper, QQShareListener listener) {
+    public void QZone(QQShareHelper.QQWebHelper helper, MyQQShareListener listener) {
         shareWeb(helper,listener);
     }
-    public void shareWeb(QQShareHelper.QQWebHelper helper, QQShareListener listener) {
+    public void shareWeb(QQShareHelper.QQWebHelper helper, MyQQShareListener listener) {
         final Bundle params = new Bundle();
         //默认web形式分享
         params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
@@ -141,7 +142,7 @@ public class MyQQShare extends BaseShare{
         mTencent.shareToQQ((Activity) context, params,listener);
     }
 
-    public void shareImage(QQShareHelper.QQImageHelper helper, QQShareListener listener) {
+    public void shareImage(QQShareHelper.QQImageHelper helper, MyQQShareListener listener) {
         final Bundle params = new Bundle();
         params.putString(QQShare.SHARE_TO_QQ_IMAGE_LOCAL_URL,helper.getImagePath());
         params.putString(QQShare.SHARE_TO_QQ_APP_NAME,helper.getAppName());
@@ -150,7 +151,7 @@ public class MyQQShare extends BaseShare{
 //        params.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO_QQ_FLAG_QZONE_AUTO_OPEN);
         mTencent.shareToQQ((Activity)context, params,listener);
     }
-    public void shareAudio(QQShareHelper.QQAudioHelper helper, QQShareListener listener) {
+    public void shareAudio(QQShareHelper.QQAudioHelper helper, MyQQShareListener listener) {
         final Bundle params = new Bundle();
         params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_AUDIO);
         params.putString(QQShare.SHARE_TO_QQ_TITLE, helper.getTitle());
@@ -168,7 +169,7 @@ public class MyQQShare extends BaseShare{
      * @param helper
      * @param listener
      */
-    public void shareApp(QQShareHelper.QQAppHelper helper, QQShareListener listener) {
+    public void shareApp(QQShareHelper.QQAppHelper helper, MyQQShareListener listener) {
         final Bundle params = new Bundle();
         params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_APP);
         params.putString(QQShare.SHARE_TO_QQ_TITLE, helper.getTitle());
@@ -212,7 +213,7 @@ public class MyQQShare extends BaseShare{
             }
         });
     }
-    public void logout(QQLoginListener listener){
+    public void logout(MyQQLoginListener listener){
         mTencent.login((Activity) context, SCOPE,listener);
     }
     public boolean ready(Context context) {
@@ -265,7 +266,7 @@ public class MyQQShare extends BaseShare{
 
                     MyRx.start(new MyFlowableSubscriber<QQUserInfo>() {
                         @Override
-                        public void subscribe(@NonNull MyFlowableEmitter<QQUserInfo> flowableEmitter) {
+                        public void subscribe(@NonNull FlowableEmitter<QQUserInfo> flowableEmitter) {
                             Map<String,String>map=new HashMap<String,String>();
                             try {
                                 String jsonp = getResultForHttpGet(getInfoUrl, mTencent.getAccessToken());
@@ -287,12 +288,12 @@ public class MyQQShare extends BaseShare{
                             }
                         }
                         @Override
-                        public void onMyNext(QQUserInfo userInfo) {
+                        public void onNext(QQUserInfo userInfo) {
                             callback.loginSuccess(userInfo);
                         }
                         @Override
-                        public void onMyError(Throwable t) {
-                            super.onMyError(t);
+                        public void onError(Throwable t) {
+                            super.onError(t);
                             callback.loginFail();
                         }
                     });

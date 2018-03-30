@@ -15,18 +15,18 @@ public class QQShareHelper extends ShareParam{
     /**
      * 页面链接
      */
-    public String url;
+    private String url;
     /**
      * 标题
      */
-    public String title;
+    private String title;
     /**
      * 摘要
      */
-    public String description;
-    public String appName;
+    private String description;
+    private String appName;
     //分享到哪里
-    public int scene;
+    private int scene;
 
     public void setScene(@MyShareType int scene){
         this.scene=scene;
@@ -72,8 +72,8 @@ public class QQShareHelper extends ShareParam{
         public QQWebHelper(@MyShareType int scene) {
             setScene(scene);
         }
-        public String imageUrl;
-        public String imagePath;
+        private String imageUrl;
+        private String imagePath;
 
         public String getImageUrl() {
             return imageUrl;
@@ -89,7 +89,7 @@ public class QQShareHelper extends ShareParam{
         }
     }
     public static class QQImageHelper extends QQShareHelper {
-        public String imagePath;
+        private String imagePath;
         public String getImagePath() {
             return imagePath;
         }
@@ -99,8 +99,8 @@ public class QQShareHelper extends ShareParam{
 
     }
     public static class QQAudioHelper extends QQShareHelper {
-        public String imageUrl;
-        public String audioUrl;
+        private String imageUrl;
+        private String audioUrl;
 
         public String getImageUrl() {
             return imageUrl;
@@ -116,9 +116,9 @@ public class QQShareHelper extends ShareParam{
         }
     }
     public static class QQAppHelper extends QQShareHelper {
-        public String imageUrl;
-        public String audioUrl;
-        public String arkJson;
+        private String imageUrl;
+        private String audioUrl;
+        private String arkJson;
 
         public String getImageUrl() {
             return imageUrl;

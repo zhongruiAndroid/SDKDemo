@@ -3,7 +3,7 @@ package com.sdklibrary.base.share.qq;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
 
-public abstract class QQShareListener implements IUiListener {
+public abstract class MyQQShareListener implements IUiListener {
     public abstract void doComplete(Object values);
     public abstract void doError(UiError e);
     public abstract void doCancel();

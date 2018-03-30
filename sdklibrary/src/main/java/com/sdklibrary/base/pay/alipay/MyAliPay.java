@@ -6,11 +6,12 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alipay.sdk.app.PayTask;
-import com.github.rxbus.rxjava.MyFlowableEmitter;
 import com.github.rxbus.rxjava.MyFlowableSubscriber;
 import com.github.rxbus.rxjava.MyRx;
 
 import java.util.Map;
+
+import io.reactivex.FlowableEmitter;
 
 
 /**
@@ -28,7 +29,7 @@ public class MyAliPay {
     public void startPay(final AliPayOrderBean aliPayOrderBean,final MyAliPayCallback callback) {
         MyRx.start(new MyFlowableSubscriber<Map<String, String>>() {
             @Override
-            public void subscribe(@NonNull MyFlowableEmitter<Map<String, String>> flowableEmitter) {
+            public void subscribe(@NonNull FlowableEmitter<Map<String, String>> flowableEmitter) {
                 final String orderInfo;
                 //本地生成orderInfo
                 if(TextUtils.isEmpty(aliPayOrderBean.getOrderInfo())){
@@ -46,8 +47,9 @@ public class MyAliPay {
                 flowableEmitter.onNext(result);
                 flowableEmitter.onComplete();
             }
+
             @Override
-            public void onMyNext(Map<String, String> result) {
+            public void onNext(Map<String, String> result) {
                 PayResult payResult = new PayResult(result);
                 /**
                  对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
@@ -67,9 +69,10 @@ public class MyAliPay {
                     callback.payFail();
                 }
             }
+
             @Override
-            public void onMyError(Throwable t) {
-                super.onMyError(t);
+            public void onError(Throwable t) {
+                super.onError(t);
                 callback.payFail();
             }
         });

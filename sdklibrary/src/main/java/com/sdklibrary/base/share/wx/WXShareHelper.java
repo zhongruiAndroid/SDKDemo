@@ -36,11 +36,11 @@ public class WXShareHelper extends ShareParam {
         public WebHelperWX(@MyShareType int scene) {
             setScene(scene);
         }
-        public String title;
-        public String description;
-        public String url;
-        public Bitmap bitmap;
-        public int bitmapResId;
+        private String title;
+        private String description;
+        private String url;
+        private Bitmap bitmap;
+        private int bitmapResId;
 
         public String getTitle() {
             return title;
@@ -87,8 +87,8 @@ public class WXShareHelper extends ShareParam {
         public VideoHelperWX(@MyShareType int scene) {
             super(scene);
         }
-        public int dstWidth=150;
-        public int dstHeight=150;
+        private int dstWidth=150;
+        private int dstHeight=150;
         public int getDstWidth() {
             return dstWidth;
         }
@@ -105,10 +105,10 @@ public class WXShareHelper extends ShareParam {
         }
     }
     public static class ImageHelperWX extends WXShareHelper {
-        public Bitmap bitmap;
-        public int bitmapResId;
-        public int dstWidth=150;
-        public int dstHeight=150;
+        private Bitmap bitmap;
+        private int bitmapResId;
+        private int dstWidth=150;
+        private int dstHeight=150;
         public ImageHelperWX(@MyShareType int scene) {
             setScene(scene);
         }
@@ -143,9 +143,9 @@ public class WXShareHelper extends ShareParam {
         }
     }
     public static class TextHelperWX extends WXShareHelper {
-        public String title;
-        public String text;
-        public String description;
+        private String title;
+        private String text;
+        private String description;
         public TextHelperWX(@MyShareType int scene) {
             setScene(scene);
         }
