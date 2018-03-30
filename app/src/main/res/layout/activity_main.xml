@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.github.sdk.MainActivity"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        >
+
+        <com.github.customview.MyTextView
+            android:id="@+id/tv_wx_friend_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="微信好友分享"
+            app:my_tv_all_line="true"
+            app:my_tv_border_width="2px"
+            app:my_tv_corner_radius="4dp"
+            />
+
+        <com.github.customview.MyTextView
+            android:id="@+id/tv_wx_circle_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="微信朋友圈分享"
+            app:my_tv_all_line="true"
+            app:my_tv_border_width="2px"
+            app:my_tv_corner_radius="4dp"
+            />
+
+        <com.github.customview.MyTextView
+            android:id="@+id/tv_wx_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="微信登录"
+            app:my_tv_all_line="true"
+            app:my_tv_border_width="2px"
+            app:my_tv_corner_radius="4dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        >
+
+        <com.github.customview.MyTextView
+            android:id="@+id/tv_qq_friend_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="QQ好友分享"
+            app:my_tv_all_line="true"
+            app:my_tv_border_width="2px"
+            app:my_tv_corner_radius="4dp"
+            />
+
+        <com.github.customview.MyTextView
+            android:id="@+id/tv_qq_qzone_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="QQ空间分享"
+            app:my_tv_all_line="true"
+            app:my_tv_border_width="2px"
+            app:my_tv_corner_radius="4dp"
+            />
+
+        <com.github.customview.MyTextView
+            android:id="@+id/tv_qq_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="QQ登录"
+            app:my_tv_all_line="true"
+            app:my_tv_border_width="2px"
+            app:my_tv_corner_radius="4dp"
+            />
+    </LinearLayout>
+
+    <com.github.customview.MyLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:my_ll_border_width="2px"
+        app:my_ll_bottom_line="true"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="微信支付"
+            />
+    </com.github.customview.MyLinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <RadioGroup
+            android:id="@+id/rg_wx_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <RadioButton
+                android:id="@+id/rb_wx_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="本地生成微信支付订单和sign"
+                android:textColor="@color/gray_66"
+                />
+
+            <RadioButton
+                android:id="@+id/rb_wx_pay_sign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="服务器生成微信支付订单和sign"
+                android:textColor="@color/gray_66"
+                />
+        </RadioGroup>
+    </LinearLayout>
+
+    <com.github.customview.MyTextView
+        android:id="@+id/tv_wx_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="点击支付测试"
+        app:my_tv_all_line="true"
+        app:my_tv_border_width="2px"
+        app:my_tv_corner_radius="4dp"
+        />
+
+    <com.github.customview.MyLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:my_ll_border_width="2px"
+        app:my_ll_bottom_line="true"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支付宝支付"
+            />
+    </com.github.customview.MyLinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <RadioGroup
+            android:id="@+id/rg_ali_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <RadioButton
+                android:id="@+id/rb_ali_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="本地生成支付宝支付订单"
+                android:textColor="@color/gray_66"
+                />
+
+            <RadioButton
+                android:id="@+id/rb_ali_pay_sign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="服务器生成支付宝支付订单"
+                android:textColor="@color/gray_66"
+                />
+        </RadioGroup>
+    </LinearLayout>
+
+    <com.github.customview.MyTextView
+        android:id="@+id/tv_ali_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="点击支付测试"
+        app:my_tv_all_line="true"
+        app:my_tv_border_width="2px"
+        app:my_tv_corner_radius="4dp"
+        />
+</LinearLayout>

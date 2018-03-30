@@ -1,0 +1,111 @@
+package com.sk.yangyusecond.wxapi;
+
+
+import android.view.View;
+
+import com.sk.yangyusecond.Config;
+import com.sk.yangyusecond.base.BaseActivity;
+import com.tencent.mm.opensdk.modelbase.BaseReq;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler {
+
+    private IWXAPI api;
+    @Override
+    protected int getContentView() {
+        return 0;
+    }
+    @Override
+    protected void initView() {
+        api = WXAPIFactory.createWXAPI(this, Config.weixing_id);
+        //api.handleIntent(getIntent(), this);
+        //注意：
+        //第三方开发者如果使用透明界面来实现WXEntryActivity，需要判断handleIntent的返回值，如果返回值为false，则说明入参不合法未被SDK处理，应finish当前透明界面，避免外部通过传递非法参数的Intent导致停留在透明界面，引起用户的疑惑
+        try {
+            api.handleIntent(getIntent(), this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        setIntent(intent);
+        api.handleIntent(intent, this);
+    }
+    @Override
+    protected void initData() {
+
+    }
+    @Override
+    protected void onViewClick(View v) {
+
+    }
+    @Override
+    public void onResp(BaseResp resp) { //在这个方法中处理微信传回的数据
+           if(resp.getType()== ConstantsAPI.COMMAND_SENDMESSAGE_TO_WX){//分享
+                Log.i("ansen","微信分享操作.....");
+
+            }else if(resp.getType()== ConstantsAPI.COMMAND_SENDAUTH){//登陆
+                Log.i("ansen", "微信登录操作.....");
+                SendAuth.Resp authResp = (SendAuth.Resp) resp;
+                String code = authResp.code;
+
+            }
+        //形参resp 有下面两个个属性比较重要
+        //1.resp.errCode
+        //2.resp.transaction则是在分享数据的时候手动指定的字符创,用来分辨是那次分享(参照4.中req.transaction)
+        switch (resp.errCode) { //根据需要的情况进行处理
+            case BaseResp.ErrCode.ERR_OK:
+                //正确返回
+                break;
+            case BaseResp.ErrCode.ERR_USER_CANCEL:
+                //用户取消
+                break;
+            case BaseResp.ErrCode.ERR_AUTH_DENIED:
+                //认证被否决
+                break;
+            case BaseResp.ErrCode.ERR_SENT_FAILED:
+                //发送失败
+                break;
+            case BaseResp.ErrCode.ERR_UNSUPPORT:
+                //不支持错误
+                break;
+            case BaseResp.ErrCode.ERR_COMM:
+                //一般错误
+                break;
+            default:
+                //其他不可名状的情况
+                break;
+        }
+        finish();
+        dismissLoading();
+    }
+
+    @Override
+    public void onReq(BaseReq req) {
+        //......这里是用来处理请求,暂不做讨论
+    }
+
+}
+
+//微信登录
+<activity
+            android:name="package.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+//微信支付
+        <activity android:name="package.wxapi.WXPayEntryActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="[wxappid]"/>
+            </intent-filter>
+        </activity>
+
