@@ -82,6 +82,33 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
 # 微信支付  
 ### 微信支付示例
 ```
+<!--微信支付所需权限-->
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<!--微信登录和分享Activity配置-->
+<activity
+    android:name="com.sk.yangyusecond.wxapi.WXEntryActivity"
+    android:configChanges="keyboardHidden|orientation|screenSize"
+    android:exported="true"
+    android:screenOrientation="portrait"
+    android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+<!--微信支付Activity配置-->
+<activity 
+    android:name="com.sk.yangyusecond.wxapi.WXPayEntryActivity"
+    android:theme="@android:style/Theme.Translucent.NoTitleBar"
+    >
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <!--这里填写自己的appid,貌似不写也可以-->
+        <data android:scheme="wx957fd60b70d04b60"/>
+    </intent-filter>
+</activity>
+```
+<br/>  
+
+```
 /********************************app本地生成支付订单信息传参******************************************/
 WXOrderBean wxOrderBean=new WXOrderBean();
 wxOrderBean.setAppId(appId);
@@ -123,7 +150,7 @@ MyWXPay.newInstance(this).startPay(wxOrderBean, new MyWXPayCallback() {
         //支付取消
     }
 });
-<br/>
+
 //如果支付时不添加回调则需要按照微信官方的做法在WXPayEntryActivity中处理
 MyWXPay.newInstance(this).startPay(wxOrderBean);
 ```
