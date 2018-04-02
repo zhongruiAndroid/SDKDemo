@@ -198,7 +198,7 @@ MyWXPay.newInstance(this).startPay(wxOrderBean, new MyWXPayCallback() {
     }
 });
 
-//如果支付时不添加回调则需要按照微信官方的做法在WXPayEntryActivity中处理
+//如果支付时不添加回调则需要按照微信官方的做法在WXPayEntryActivity中重写onResp(BaseResp resp)方法处理
 MyWXPay.newInstance(this).startPay(wxOrderBean);
 ```
 **如果微信分享、支付、登录不成功，请仔细检查相关配置(微信开放平台是否配置相关信息，应用包名、应用签名是否配置正确)和app是否进行签名**
