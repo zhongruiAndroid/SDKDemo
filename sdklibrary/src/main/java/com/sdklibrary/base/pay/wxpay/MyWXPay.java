@@ -60,6 +60,22 @@ public class MyWXPay {
     private WXOrderBean orderBean;
     private MyDisposable payDisposable;
 
+
+    private static String appId;
+    private static String miYao;
+    private static String mch_id;
+    /***
+     *
+     * @param APPID 应用id
+     * @param MIYAO 商户id
+     * @param MCH_ID 密钥
+     */
+    public static void setConfig(String APPID,String MIYAO,String MCH_ID){
+        appId=APPID;
+        miYao=MIYAO;
+        mch_id=MCH_ID;
+    }
+
     private MyWXPay(Context context) {
         mContext=context;
     }
@@ -70,6 +86,15 @@ public class MyWXPay {
         startPay(bean,null);
     }
     public void startPay(WXOrderBean bean,final MyWXPayCallback callback) {
+        if(TextUtils.isEmpty(bean.getAppId())){
+            bean.setAppId(appId);
+        }
+        if(TextUtils.isEmpty(bean.getMiyao())){
+            bean.setMiyao(miYao);
+        }
+        if(TextUtils.isEmpty(bean.getMch_id())){
+            bean.setMch_id(mch_id);
+        }
         api = WXAPIFactory.createWXAPI(mContext,bean.getAppId());
         api.registerApp(bean.getAppId());
         orderBean =bean;

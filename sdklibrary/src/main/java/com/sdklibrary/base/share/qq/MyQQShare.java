@@ -213,8 +213,8 @@ public class MyQQShare extends BaseShare{
             }
         });
     }
-    public void logout(MyQQLoginListener listener){
-        mTencent.login((Activity) context, SCOPE,listener);
+    public Tencent getTencent(){
+        return mTencent;
     }
     public boolean ready(Context context) {
         if (mTencent == null) {

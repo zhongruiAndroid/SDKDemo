@@ -1,5 +1,7 @@
 package com.sdklibrary.base.share.qq;
 
+import android.content.Intent;
+
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
@@ -9,7 +11,7 @@ import com.tencent.tauth.UiError;
  */
 
 public class MyQQActivityResult {
-    public static void a(){
+    public static void onActivityResult(int requestCode, int resultCode, Intent data){
         //qq分享配置
         if (requestCode == Constants.REQUEST_QQ_SHARE) {
             Tencent.onActivityResultData(requestCode, resultCode, data, new MyQQShareListener() {

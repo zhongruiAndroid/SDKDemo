@@ -20,6 +20,21 @@ import io.reactivex.FlowableEmitter;
 
 public class MyAliPay {
     private Activity mContext;
+    private static String appId;
+    private static String pid;//商户id
+    private static String siYao;//私钥
+
+    /***
+     *
+     * @param APPID 应用id
+     * @param PID 商户id
+     * @param SIYAO 私钥
+     */
+    public static void setConfig(String APPID,String PID,String SIYAO){
+        appId=APPID;
+        pid=PID;
+        siYao=SIYAO;
+    }
     private MyAliPay(Activity context) {
         this.mContext=context;
     }
@@ -31,6 +46,15 @@ public class MyAliPay {
             @Override
             public void subscribe(@NonNull FlowableEmitter<Map<String, String>> flowableEmitter) {
                 final String orderInfo;
+                if(TextUtils.isEmpty(aliPayOrderBean.getAppId())){
+                    aliPayOrderBean.setAppId(appId);
+                }
+                if(TextUtils.isEmpty(aliPayOrderBean.getPid())){
+                    aliPayOrderBean.setPid(pid);
+                }
+                if(TextUtils.isEmpty(aliPayOrderBean.getSiYao())){
+                    aliPayOrderBean.setSiYao(siYao);
+                }
                 //本地生成orderInfo
                 if(TextUtils.isEmpty(aliPayOrderBean.getOrderInfo())){
                     Map<String, String> aliMap = OrderInfoUtil2_0.buildOrderParamMap(aliPayOrderBean);

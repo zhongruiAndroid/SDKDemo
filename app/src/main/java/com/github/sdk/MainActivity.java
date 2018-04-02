@@ -4,20 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sdklibrary.base.share.ShareParam;
-import com.sdklibrary.base.share.qq.MyQQLoginListener;
+import com.sdklibrary.base.share.qq.MyQQActivityResult;
+import com.sdklibrary.base.share.qq.MyQQLoginCallback;
 import com.sdklibrary.base.share.qq.MyQQShare;
 import com.sdklibrary.base.share.qq.MyQQShareListener;
 import com.sdklibrary.base.share.qq.QQShareHelper;
+import com.sdklibrary.base.share.qq.bean.QQUserInfo;
 import com.sdklibrary.base.share.wx.MyWXShare;
 import com.sdklibrary.base.share.wx.MyWXShareCallback;
 import com.sdklibrary.base.share.wx.WXShareHelper;
-import com.tencent.connect.common.Constants;
-import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String weixing_AppSecret = "";
     public static final String qq_id = "1106315352";
     public static final String qq_key = "xyTTuuJGORswRS6I";
+    private QQShareHelper.QQWebHelper qqHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,32 +99,68 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv_qq_friend_share:
                 //QQ好友分享
-                QQShareHelper.QQWebHelper qqHelper=new QQShareHelper.QQWebHelper(ShareParam.QQ);
+                qqHelper=new QQShareHelper.QQWebHelper(ShareParam.QQ);
                 qqHelper.setTitle("QQ分享标题");
                 qqHelper.setDescription("QQ分享内容");
-                qqHelper.setUrl("www.baidu.com");
+                qqHelper.setUrl("http://47.92.28.70:1800/index.html");
                 qqHelper.setImageUrl("https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=4b0d814ddf3f8794c7f2407cb3726591/6c224f4a20a44623d0bfc7979322720e0df3d7ca.jpg");
 
                 MyQQShare.newInstance(this).shareWeb(qqHelper, new MyQQShareListener() {
                     @Override
                     public void doComplete(Object values) {
-
+                        Log.i("===","==="+values);
                     }
                     @Override
                     public void doError(UiError e) {
-
+                        Log.i("===","===doError");
                     }
                     @Override
                     public void doCancel() {
-
+                        Log.i("===","===doCancel");
                     }
                 });
                 break;
             case R.id.tv_qq_qzone_share:
                 //QQ空间分享
+                qqHelper = new QQShareHelper.QQWebHelper(ShareParam.QZONE);
+                qqHelper.setTitle("QQ分享标题");
+                qqHelper.setDescription("QQ分享内容");
+                qqHelper.setUrl("http://47.92.28.70:1800/index.html");
+                qqHelper.setImageUrl("https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=4b0d814ddf3f8794c7f2407cb3726591/6c224f4a20a44623d0bfc7979322720e0df3d7ca.jpg");
+
+                MyQQShare.newInstance(this).shareWeb(qqHelper, new MyQQShareListener() {
+                    @Override
+                    public void doComplete(Object values) {
+                        Log.i("===","==="+values);
+                    }
+                    @Override
+                    public void doError(UiError e) {
+                        Log.i("===","===doError");
+                    }
+                    @Override
+                    public void doCancel() {
+                        Log.i("===","===doCancel");
+                    }
+                });
                 break;
             case R.id.tv_qq_login:
                 //QQ登录
+                MyQQShare.newInstance(this).login(new MyQQLoginCallback() {
+                    @Override
+                    public void loginSuccess(QQUserInfo userInfo) {
+                        Log.i("===","==="+userInfo.toString());
+                    }
+                    @Override
+                    public void loginFail() {
+                        Log.i("===","===loginFail");
+
+                    }
+                    @Override
+                    public void loginCancel() {
+                        Log.i("===","===loginCancel");
+
+                    }
+                });
                 break;
         }
     }
@@ -153,32 +192,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //qq分享配置
-        if (requestCode == Constants.REQUEST_QQ_SHARE) {
-            Tencent.onActivityResultData(requestCode, resultCode, data, new MyQQShareListener() {
-                @Override
-                public void doComplete(Object values) {
-                }
-                @Override
-                public void doError(UiError e) {
-                }
-                @Override
-                public void doCancel() {
-                }
-            });
-        }
-        //qq登录配置
-        if (requestCode == Constants.REQUEST_LOGIN ||requestCode == Constants.REQUEST_APPBAR) {
-            Tencent.onActivityResultData(requestCode, resultCode, data, new MyQQLoginListener() {
-                @Override
-                public void doComplete(String response) {
-                }
-                @Override
-                public void doError(UiError e) {
-                }
-                @Override
-                public void doCancel() {
-                }
-            });
-        }
+        MyQQActivityResult.onActivityResult(requestCode, resultCode, data);
     }
 }
