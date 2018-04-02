@@ -62,18 +62,18 @@ public class MyWXPay {
 
 
     private static String appId;
-    private static String miYao;
     private static String mch_id;
+    private static String miYao;
     /***
      *
      * @param APPID 应用id
-     * @param MIYAO 商户id
-     * @param MCH_ID 密钥
+     * @param MCH_ID 商户id
+     * @param MIYAO 密钥
      */
-    public static void setConfig(String APPID,String MIYAO,String MCH_ID){
+    public static void setConfig(String APPID,String MCH_ID,String MIYAO){
         appId=APPID;
-        miYao=MIYAO;
         mch_id=MCH_ID;
+        miYao=MIYAO;
     }
 
     private MyWXPay(Context context) {
@@ -83,17 +83,20 @@ public class MyWXPay {
         return new MyWXPay(context);
     }
     public void startPay(WXOrderBean bean) {
+        if(bean!=null){
+            bean.setIP(mContext);
+        }
         startPay(bean,null);
     }
     public void startPay(WXOrderBean bean,final MyWXPayCallback callback) {
         if(TextUtils.isEmpty(bean.getAppId())){
             bean.setAppId(appId);
         }
-        if(TextUtils.isEmpty(bean.getMiyao())){
-            bean.setMiyao(miYao);
-        }
         if(TextUtils.isEmpty(bean.getMch_id())){
             bean.setMch_id(mch_id);
+        }
+        if(TextUtils.isEmpty(bean.getMiyao())){
+            bean.setMiyao(miYao);
         }
         api = WXAPIFactory.createWXAPI(mContext,bean.getAppId());
         api.registerApp(bean.getAppId());
@@ -266,7 +269,7 @@ public class MyWXPay {
         Log.e("orion_genAppSign", appSign);
         return appSign;
     }
-    public double getPrice(double num){
+    private double getPrice(double num){
         BigDecimal b = new BigDecimal(num);
         double result = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         return result;
@@ -363,7 +366,7 @@ public class MyWXPay {
     }
 
     // //////////////////////////////////////////////////////////////////////////////
-    public Map<String, String> decodeXml(String content) {
+    private Map<String, String> decodeXml(String content) {
         try {
             Map<String, String> xml = new HashMap<String, String>();
             XmlPullParser parser = Xml.newPullParser();

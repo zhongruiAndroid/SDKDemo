@@ -1,16 +1,20 @@
 package com.sdklibrary.base.pay.wxpay;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 /**
  * Created by administartor on 2017/8/28.
  */
 
 public class WXOrderBean {
-    private String notifyUrl;//通知地址
+    //本地生成或者服务器生成订单都需要
     private String appId;//appid
     private String mch_id;//mch_id
     private String miyao;//密钥
+
+    //用于本地生成支付订单信息
+    private String notifyUrl;//通知地址
     private String body;//描述
     private String out_trade_no;//订单号
     private int totalFee;//总金额,单位：分
@@ -21,12 +25,17 @@ public class WXOrderBean {
     //用于服务器生成订单号和签名
     private String prepayId;//微信支付订单号
     private String sign;//微信支付签名
-    private  String packageValue="Sign=WXPay";
-    private  String timeStamp;
+    private String packageValue="Sign=WXPay";
+    private String timeStamp;
 
-    public WXOrderBean(Context context) {
-        this.IP = WXUtils.getIP(context);
+    public WXOrderBean() {
         this.nonceStr=WXUtils.getNonceStr();
+    }
+
+    public void setIP(Context context) {
+        if(TextUtils.isEmpty(this.IP)){
+            this.IP = WXUtils.getIP(context);
+        }
     }
 
     public String getAppId() {
