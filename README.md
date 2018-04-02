@@ -80,6 +80,25 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
 <br/>  
 
 # 微信支付  
+
+| √:必传参数<br/>×:非必传参数<br/>o:可在application初始化 | 说明                                                                         | 本地生成支付订单 | 服务器生成支付订单 |
+|-------------------------|------------------------------------------------------------------------------|:----------------:|:------------------:|
+| setAppId                | 开发者应用id |         √-o        |          √-o         |
+| setMch_id               | 商户号                                                                       |         √-o        |          √-o         |
+| setMiyao                | 密钥                                                                         |         √-o        |          √-o         |
+| setNotifyUrl            | 微信通知商户服务器的地址                                                     |         √        |          ×         |
+| setOut_trade_no         | 自己服务器生成的订单号                                                       |         √        |          ×         |
+| setTotalFee             | 订单金额(单位:分)                                                            |         √        |          ×         |
+| setBody                 | 订单具体描述信息                                                             |         √        |          ×         |
+| IP                      | 设备IP                                                                       |         √        |          ×         |
+| nonceStr                | 随机数                                                                       |         √        |          ×         |
+| setPrepayId             | 微信支付订单号                                                               |         ×        |          √         |
+| setSign                 | 请求微信支付所需要的签名(不是app签名)                                        |         ×        |          √         |
+| setPackageValue         | 默认值:Sign=WXPay                                                            |         ×        |          √         |
+| setTimeStamp            | 时间戳                                                                       |         ×        |          √         |
+  
+**上述参数中的APPID,MCH_ID,MIYAO可在application中调用MyWXPay.setConfig(APPID,MCH_ID,MIYAO)设置**  
+
 ### 微信支付示例
 ```
 <!--微信支付所需权限-->
@@ -88,14 +107,14 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 <!--微信登录和分享Activity配置-->
 <activity
-    android:name="com.sk.yangyusecond.wxapi.WXEntryActivity"
+    android:name="包名.wxapi.WXEntryActivity"
     android:configChanges="keyboardHidden|orientation|screenSize"
     android:exported="true"
     android:screenOrientation="portrait"
     android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 <!--微信支付Activity配置-->
 <activity 
-    android:name="com.sk.yangyusecond.wxapi.WXPayEntryActivity"
+    android:name="包名.wxapi.WXPayEntryActivity"
     android:theme="@android:style/Theme.Translucent.NoTitleBar"
     >
     <intent-filter>
@@ -107,6 +126,34 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
 </activity>
 ```
 <br/>  
+
+```
+//在包名下新建一个wxapi文件夹，里面新建WXEntryActivity(用于登录和分享)，WXPayEntryActivity(用于支付)
+//分别继承MyWXEntryActivity和MyWXPayEntryActivity
+
+public class WXEntryActivity extends MyWXEntryActivity{
+    @Override
+    protected int getContentView() {
+        return 0;
+    }
+    @Override
+    protected void initView() {
+        
+    }
+}
+
+public class WXPayEntryActivity extends MyWXPayEntryActivity {
+    @Override
+    protected int getContentView() {
+        return 0;
+    }
+    @Override
+    protected void initView() {
+        
+    }   
+}
+```
+
 
 ```
 /********************************app本地生成支付订单信息传参******************************************/
