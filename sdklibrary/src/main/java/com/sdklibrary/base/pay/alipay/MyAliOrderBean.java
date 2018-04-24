@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by Administrator on 2018/3/8.
  */
 
-public class AliPayOrderBean {
+public class MyAliOrderBean {
     private String appId;
     private String pid;//商户id
     private String siYao;//私钥
@@ -26,7 +26,7 @@ public class AliPayOrderBean {
     public String product_code="QUICK_MSECURITY_PAY";
     public String timestamp;
 
-    public AliPayOrderBean( ) {
+    public MyAliOrderBean( ) {
         timestamp=dateToString(new Date(),"yyyy-MM-dd HH:mm:ss");
     }
 

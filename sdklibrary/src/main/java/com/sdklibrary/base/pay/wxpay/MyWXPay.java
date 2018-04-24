@@ -57,7 +57,7 @@ public class MyWXPay {
     private static IWXAPI api;
 //    private Map<String, String> resultunifiedorder;
     private StringBuffer sb;
-    private WXOrderBean orderBean;
+    private MyWXOrderBean orderBean;
     private MyDisposable payDisposable;
 
 
@@ -82,13 +82,13 @@ public class MyWXPay {
     public static MyWXPay newInstance(Context context) {
         return new MyWXPay(context);
     }
-    public void startPay(WXOrderBean bean) {
+    public void startPay(MyWXOrderBean bean) {
         if(bean!=null){
             bean.setIP(mContext);
         }
         startPay(bean,null);
     }
-    public void startPay(WXOrderBean bean,final MyWXPayCallback callback) {
+    public void startPay(MyWXOrderBean bean, final MyWXPayCallback callback) {
         if(TextUtils.isEmpty(bean.getAppId())){
             bean.setAppId(appId);
         }
@@ -156,7 +156,7 @@ public class MyWXPay {
      * @throws
      * @since 1.0.0
      */
-    private void requestPayForWebSign(WXOrderBean bean, final MyWXPayCallback callback) {
+    private void requestPayForWebSign(MyWXOrderBean bean, final MyWXPayCallback callback) {
         req.appId =bean.getAppId();
         req.partnerId =bean.getMch_id();
         req.prepayId = bean.getPrepayId();

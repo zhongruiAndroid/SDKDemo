@@ -7,28 +7,62 @@ import android.text.TextUtils;
  * Created by administartor on 2017/8/28.
  */
 
-public class WXOrderBean {
-    //本地生成或者服务器生成订单都需要
-    private String appId;//appid
-    private String mch_id;//mch_id
-    private String miyao;//密钥
+public class MyWXOrderBean {
+    /**
+     * 应用ID(必填)
+     * 微信开放平台审核通过的应用APPID
+     */
+    private String appId;
+    /**
+     * 商户号(必填)
+     * 微信支付分配的商户号
+     */
+    private String mch_id;
+    private String miyao;
 
-    //用于本地生成支付订单信息
-    private String notifyUrl;//通知地址
-    private String body;//描述
-    private String out_trade_no;//订单号
-    private int totalFee;//总金额,单位：分
+    /**
+     * 通知地址(必填)
+     * 用于本地生成支付订单信息
+     * 接收微信支付异步通知回调地址，通知url必须为直接可访问的url，不能携带参数。
+     */
+    private String notifyUrl;
+    /**
+     * 商品描述(必填)
+     * 比如：腾讯充值中心-QQ会员充值
+     */
+    private String body;
+    /**
+     * 商户订单号(必填)
+     * 商户系统内部订单号，要求32个字符内，只能是数字、大小写字母_-|*@ ，且在同一个商户号下唯一。详见商户订单号
+     */
+    private String out_trade_no;
+    /**
+     * 总金额(必填)单位：分
+     * 订单总金额，单位为分，详见支付金额
+     */
+    private int totalFee;
+    /**
+     * 终端IP(必填)
+     * 用户端实际ip
+     */
     public  String IP;//终端IP
+    /**
+     * 随机字符串(必填)
+     * 随机字符串，不长于32位。推荐随机数生成算法
+     */
     public  String nonceStr;//随机数
 
 
     //用于服务器生成订单号和签名
     private String prepayId;//微信支付订单号
+    /**
+     * 签名(必填)
+     */
     private String sign;//微信支付签名
     private String packageValue="Sign=WXPay";
     private String timeStamp;
 
-    public WXOrderBean() {
+    public MyWXOrderBean() {
         this.nonceStr=WXUtils.getNonceStr();
     }
 

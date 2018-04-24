@@ -23,7 +23,7 @@ public class OrderInfoUtil2_0 {
 	 * 
 	 * @return
 	 */
-	public static Map<String, String> buildAuthInfoMap(AliPayOrderBean bean) {
+	public static Map<String, String> buildAuthInfoMap(MyAliOrderBean bean) {
 		Map<String, String> keyValues = new HashMap<String, String>();
 
 		// 商户签约拿到的app_id，如：2013081700024223
@@ -63,7 +63,7 @@ public class OrderInfoUtil2_0 {
 	 * 构造支付订单参数列表
 	 * @return
 	 */
-	public static Map<String, String> buildOrderParamMap(AliPayOrderBean bean) {
+	public static Map<String, String> buildOrderParamMap(MyAliOrderBean bean) {
 		String bizContent = new Gson().toJson(bean);
 		Log.i("=======","======="+bizContent);
 

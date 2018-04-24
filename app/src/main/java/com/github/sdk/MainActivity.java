@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sdklibrary.base.pay.alipay.AliPayOrderBean;
+import com.sdklibrary.base.pay.alipay.MyAliOrderBean;
 import com.sdklibrary.base.share.ShareParam;
 import com.sdklibrary.base.share.qq.MyQQActivityResult;
 import com.sdklibrary.base.share.qq.MyQQLoginCallback;
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initView();
 
-        AliPayOrderBean bean;
+        MyAliOrderBean bean;
     }
 
     private void initView() {
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     /*public void a(){
-        WXOrderBean wxOrderBean=new WXOrderBean();
+        MyWXOrderBean wxOrderBean=new MyWXOrderBean();
         wxOrderBean.setAppId(appId);
         wxOrderBean.setMch_id(mch_id);
         wxOrderBean.setMiyao(miyao);

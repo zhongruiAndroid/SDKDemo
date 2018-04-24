@@ -41,29 +41,29 @@ public class MyAliPay {
     public static MyAliPay newInstance(Activity context) {
         return new MyAliPay(context);
     }
-    public void startPay(final AliPayOrderBean aliPayOrderBean,final MyAliPayCallback callback) {
+    public void startPay(final MyAliOrderBean myAliOrderBean, final MyAliPayCallback callback) {
         MyRx.start(new MyFlowableSubscriber<Map<String, String>>() {
             @Override
             public void subscribe(@NonNull FlowableEmitter<Map<String, String>> flowableEmitter) {
                 final String orderInfo;
-                if(TextUtils.isEmpty(aliPayOrderBean.getAppId())){
-                    aliPayOrderBean.setAppId(appId);
+                if(TextUtils.isEmpty(myAliOrderBean.getAppId())){
+                    myAliOrderBean.setAppId(appId);
                 }
-                if(TextUtils.isEmpty(aliPayOrderBean.getPid())){
-                    aliPayOrderBean.setPid(pid);
+                if(TextUtils.isEmpty(myAliOrderBean.getPid())){
+                    myAliOrderBean.setPid(pid);
                 }
-                if(TextUtils.isEmpty(aliPayOrderBean.getSiYao())){
-                    aliPayOrderBean.setSiYao(siYao);
+                if(TextUtils.isEmpty(myAliOrderBean.getSiYao())){
+                    myAliOrderBean.setSiYao(siYao);
                 }
                 //本地生成orderInfo
-                if(TextUtils.isEmpty(aliPayOrderBean.getOrderInfo())){
-                    Map<String, String> aliMap = OrderInfoUtil2_0.buildOrderParamMap(aliPayOrderBean);
+                if(TextUtils.isEmpty(myAliOrderBean.getOrderInfo())){
+                    Map<String, String> aliMap = OrderInfoUtil2_0.buildOrderParamMap(myAliOrderBean);
                     String orderParam = OrderInfoUtil2_0.buildOrderParam(aliMap);
-                    String sign = OrderInfoUtil2_0.getSign(aliMap,aliPayOrderBean.getSiYao(), true);
+                    String sign = OrderInfoUtil2_0.getSign(aliMap, myAliOrderBean.getSiYao(), true);
                     orderInfo = orderParam + "&" + sign;
                 }else{
                     //服务器生成的orderInfo
-                    orderInfo=aliPayOrderBean.getOrderInfo();
+                    orderInfo= myAliOrderBean.getOrderInfo();
                 }
                 PayTask payTask = new PayTask(mContext);
                 Map<String, String> result = payTask.payV2(orderInfo, true);
