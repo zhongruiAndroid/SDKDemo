@@ -52,6 +52,7 @@ aliBean.setSiYao(rsa2);
 //MyAliPay.setConfig(appid,pid,siyao);
 aliBean.setNotifyUrl(notifyUrl);
 aliBean.setOut_trade_no(orderNo);
+//订单金额(单位:元)
 aliBean.setTotal_amount(totalPrice);
 aliBean.setSubject("XXX订单");
 aliBean.setBody("XXX订单交易");
