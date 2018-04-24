@@ -44,7 +44,7 @@
 
 ```
 /********************************app本地生成支付订单信息传参******************************************/
-AliPayOrderBean aliBean=new AliPayOrderBean();
+MyAliOrderBean aliBean=new MyAliOrderBean();
 aliBean.setAppId(appid);
 aliBean.setPid(pid);
 aliBean.setSiYao(rsa2);
@@ -57,14 +57,14 @@ aliBean.setSubject("XXX订单");
 aliBean.setBody("XXX订单交易");
 
 /********************************服务器生成支付订单信息传参*********************************************/
-AliPayOrderBean aliBean=new AliPayOrderBean();
+MyAliOrderBean aliBean=new MyAliOrderBean();
 aliBean.setOrderInfo(orderInfo);
 
 /*如果getOrderInfo()不为空则为服务器生成订单,否则属于app本地生成订单信息*/
 MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
     @Override
     public void paySuccess(PayResult result) {
-        // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
+        // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。(官方原话)
         //支付成功
     }
     @Override
@@ -157,7 +157,7 @@ public class WXPayEntryActivity extends MyWXPayEntryActivity {
 
 ```
 /********************************app本地生成支付订单信息传参******************************************/
-WXOrderBean wxOrderBean=new WXOrderBean();
+MyWXOrderBean wxOrderBean=new MyWXOrderBean();
 wxOrderBean.setAppId(appId);
 wxOrderBean.setMch_id(mch_id);
 wxOrderBean.setMiyao(miyao);
@@ -173,7 +173,7 @@ wxOrderBean.IP="设备ip地址";
 wxOrderBean.nonceStr="随机数";
 
 /********************************服务器生成支付订单信息传参*********************************************/
-WXOrderBean wxOrderBean=new WXOrderBean();
+MyWXOrderBean wxOrderBean=new MyWXOrderBean();
 wxOrderBean.setAppId(appId);
 wxOrderBean.setMch_id(mch_id);
 wxOrderBean.setMiyao(miyao);
