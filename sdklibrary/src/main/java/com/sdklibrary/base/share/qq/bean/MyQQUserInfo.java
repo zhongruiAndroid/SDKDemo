@@ -4,7 +4,7 @@ package com.sdklibrary.base.share.qq.bean;
  * Created by Administrator on 2018/3/13.
  */
 
-public class QQUserInfo {
+public class MyQQUserInfo {
 
     /**
      * ret : 0

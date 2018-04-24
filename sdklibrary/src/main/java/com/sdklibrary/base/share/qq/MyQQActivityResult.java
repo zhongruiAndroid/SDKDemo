@@ -3,6 +3,7 @@ package com.sdklibrary.base.share.qq;
 import android.content.Intent;
 
 import com.tencent.connect.common.Constants;
+import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
@@ -28,15 +29,20 @@ public class MyQQActivityResult {
         }
         //qq登录配置
         if (requestCode == Constants.REQUEST_LOGIN ||requestCode == Constants.REQUEST_APPBAR) {
-            Tencent.onActivityResultData(requestCode, resultCode, data, new MyQQLoginListener() {
+            Tencent.onActivityResultData(requestCode, resultCode, data, new IUiListener() {
                 @Override
-                public void doComplete(String response) {
+                public void onComplete(Object o) {
+
                 }
+
                 @Override
-                public void doError(UiError e) {
+                public void onError(UiError uiError) {
+
                 }
+
                 @Override
-                public void doCancel() {
+                public void onCancel() {
+
                 }
             });
         }

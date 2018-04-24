@@ -13,15 +13,15 @@ public abstract class MyQQShareListener implements IUiListener {
     }
     @Override
     public void onError(UiError e) {
-//			Util.toastMessage(MainActivity.this, "onError: " + e.errorDetail);
-//			Util.dismissDialog();
+//			MyWXUtil.toastMessage(MainActivity.this, "onError: " + e.errorDetail);
+//			MyWXUtil.dismissDialog();
         doError(e);
     }
     @Override
     public void onCancel() {
         doCancel();
-//			Util.toastMessage(MainActivity.this, "onCancel: ");
-//			Util.dismissDialog();
+//			MyWXUtil.toastMessage(MainActivity.this, "onCancel: ");
+//			MyWXUtil.dismissDialog();
 //            if (isServerSideLogin) {
 //                isServerSideLogin = false;
 //            }

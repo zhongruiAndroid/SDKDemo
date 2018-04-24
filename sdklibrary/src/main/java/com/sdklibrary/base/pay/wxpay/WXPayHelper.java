@@ -1,6 +1,6 @@
 package com.sdklibrary.base.pay.wxpay;
 
-import com.sdklibrary.base.share.wx.Util;
+import com.sdklibrary.base.share.wx.MyWXUtil;
 
 import java.util.Random;
 
@@ -194,7 +194,7 @@ public class WXPayHelper {
      */
     public String getNonceStr() {
         Random random = new Random();
-        return Util.getMessageDigest(String.valueOf(random.nextInt(10000)).getBytes());
+        return MyWXUtil.getMessageDigest(String.valueOf(random.nextInt(10000)).getBytes());
     }
 
 }

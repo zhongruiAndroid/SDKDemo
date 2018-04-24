@@ -6,7 +6,7 @@ import java.util.List;
  * Created by Administrator on 2018/3/20.
  */
 
-public class WXUserInfo {
+public class MyWXUserInfo {
 
     /**
      * access_token : 7_oZH2jM09R5XbmNj3KAZzDzvlPhnSr5Svd9s-EOCPFknLFh22WJVqvfsa4uiJu89QrJLP3HUR3m4P3XxlmpN14nRujUoNxUc66PFSZB-0quA

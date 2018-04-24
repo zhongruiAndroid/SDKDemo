@@ -13,7 +13,7 @@ import com.github.rxbus.MyRxBus;
 import com.github.rxbus.rxjava.MyFlowableSubscriber;
 import com.github.rxbus.rxjava.MyRx;
 import com.sdklibrary.base.WXEvent;
-import com.sdklibrary.base.share.wx.Util;
+import com.sdklibrary.base.share.wx.MyWXUtil;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -118,7 +118,7 @@ public class MyWXPay {
                         public void subscribe(@NonNull FlowableEmitter<Map<String, String>> flowableEmitter) {
                             String url = String.format("https://api.mch.weixin.qq.com/pay/unifiedorder");
                             String entity = genProductArgs();
-                            byte[] buf = Util.httpPost(url, entity);
+                            byte[] buf = MyWXUtil.httpPost(url, entity);
                             String content = new String(buf);
                             Log.e("orion", content);
                             Map<String, String> xml = decodeXml(content);
@@ -246,7 +246,7 @@ public class MyWXPay {
      */
     private String genNonceStr() {
         Random random = new Random();
-        return Util.getMessageDigest(String.valueOf(random.nextInt(10000)).getBytes());
+        return MyWXUtil.getMessageDigest(String.valueOf(random.nextInt(10000)).getBytes());
     }
 
     private long genTimeStamp() {
@@ -265,7 +265,7 @@ public class MyWXPay {
         sb.append(orderBean.getMiyao());
 
         this.sb.append("sign str\n" + sb.toString() + "\n\n");
-        String appSign = Util.getMessageDigest(sb.toString().getBytes()).toUpperCase();
+        String appSign = MyWXUtil.getMessageDigest(sb.toString().getBytes()).toUpperCase();
         Log.e("orion_genAppSign", appSign);
         return appSign;
     }
@@ -324,7 +324,7 @@ public class MyWXPay {
      */
     private String genOutTradNo() {
         Random random = new Random();
-        return Util.getMessageDigest(String.valueOf(random.nextInt(10000)).getBytes());
+        return MyWXUtil.getMessageDigest(String.valueOf(random.nextInt(10000)).getBytes());
     }
 
     /**
@@ -346,7 +346,7 @@ public class MyWXPay {
         sb.append("key=");
         sb.append(orderBean.getMiyao());
         Log.e("url", sb.toString());
-        String packageSign = Util.getMessageDigest(sb.toString().getBytes()).toUpperCase();
+        String packageSign = MyWXUtil.getMessageDigest(sb.toString().getBytes()).toUpperCase();
         Log.e("orion_genPackageSign", packageSign);
         return packageSign;
     }

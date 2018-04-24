@@ -14,6 +14,10 @@ import com.github.rxbus.rxjava.MyRx;
 import com.google.gson.Gson;
 import com.sdklibrary.base.WXEvent;
 import com.sdklibrary.base.share.BaseShare;
+import com.sdklibrary.base.share.wx.bean.MyWXImageHelper;
+import com.sdklibrary.base.share.wx.bean.MyWXTextHelper;
+import com.sdklibrary.base.share.wx.bean.MyWXVideoHelper;
+import com.sdklibrary.base.share.wx.bean.MyWXWebHelper;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
@@ -101,10 +105,10 @@ public class MyWXShare extends BaseShare {
      *
      * @param helper
      */
-    public void shareVideo(WXShareHelper.WebHelperWX helper) {
+    public void shareVideo(MyWXWebHelper helper) {
         shareVideo(helper,null);
     }
-    public void shareVideo(WXShareHelper.WebHelperWX helper,  MyWXShareCallback callback) {
+    public void shareVideo(MyWXWebHelper helper, MyWXShareCallback callback) {
         if (notShare(context, api)) {
             shareCancel(callback);
             return;
@@ -121,7 +125,7 @@ public class MyWXShare extends BaseShare {
         } else {
             bmp = helper.getBitmap();
         }
-        msg.thumbData = Util.bmpToByteArray(bmp, true);
+        msg.thumbData = MyWXUtil.bmpToByteArray(bmp, true);
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("video");
@@ -136,10 +140,10 @@ public class MyWXShare extends BaseShare {
      *
      * @param helper
      */
-    public void shareVideo(WXShareHelper.VideoHelperWX helper) {
+    public void shareVideo(MyWXVideoHelper helper) {
         shareVideo(helper,null);
     }
-    public void shareVideo(WXShareHelper.VideoHelperWX helper,  MyWXShareCallback callback) {
+    public void shareVideo(MyWXVideoHelper helper, MyWXShareCallback callback) {
         if (notShare(context, api)) {
             shareCancel(callback);
             return;
@@ -158,7 +162,7 @@ public class MyWXShare extends BaseShare {
         }
         Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, helper.getDstWidth(), helper.getDstHeight(), true);
         bmp.recycle();
-        msg.thumbData = Util.bmpToByteArray(thumbBmp, true);
+        msg.thumbData = MyWXUtil.bmpToByteArray(thumbBmp, true);
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("video");
         req.message = msg;
@@ -172,11 +176,11 @@ public class MyWXShare extends BaseShare {
      *
      * @param helper
      */
-    public void shareWeb(WXShareHelper.WebHelperWX helper) {
+    public void shareWeb(MyWXWebHelper helper) {
         shareWeb(helper, null);
     }
 
-    public void shareWeb(WXShareHelper.WebHelperWX helper,final MyWXShareCallback callback) {
+    public void shareWeb(MyWXWebHelper helper, final MyWXShareCallback callback) {
         if (notShare(context, api)) {
             shareCancel(callback);
             return;
@@ -193,7 +197,7 @@ public class MyWXShare extends BaseShare {
         } else {
             bitmap = helper.getBitmap();
         }
-        msg.thumbData = Util.bmpToByteArray(bitmap, true);
+        msg.thumbData = MyWXUtil.bmpToByteArray(bitmap, true);
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("webPage");
@@ -252,10 +256,10 @@ public class MyWXShare extends BaseShare {
      *
      * @param helper
      */
-    public void shareAudio(WXShareHelper.WebHelperWX helper) {
+    public void shareAudio(MyWXWebHelper helper) {
         shareAudio(helper,null);
     }
-    public void shareAudio(WXShareHelper.WebHelperWX helper,  MyWXShareCallback callback) {
+    public void shareAudio(MyWXWebHelper helper, MyWXShareCallback callback) {
         if (notShare(context, api)) {
             shareCancel(callback);
             return;
@@ -275,7 +279,7 @@ public class MyWXShare extends BaseShare {
             bitmap = helper.getBitmap();
         }
 
-        msg.thumbData = Util.bmpToByteArray(bitmap, true);
+        msg.thumbData = MyWXUtil.bmpToByteArray(bitmap, true);
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("music");
@@ -290,10 +294,10 @@ public class MyWXShare extends BaseShare {
      *
      * @param helper
      */
-    public void shareAudio(WXShareHelper.VideoHelperWX helper) {
+    public void shareAudio(MyWXVideoHelper helper) {
         shareAudio(helper,null);
     }
-    public void shareAudio(WXShareHelper.VideoHelperWX helper,MyWXShareCallback callback) {
+    public void shareAudio(MyWXVideoHelper helper, MyWXShareCallback callback) {
         if (notShare(context, api)) {
             shareCancel(callback);
             return;
@@ -315,7 +319,7 @@ public class MyWXShare extends BaseShare {
         Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, helper.getDstWidth(), helper.getDstHeight(), true);
         bmp.recycle();
 
-        msg.thumbData = Util.bmpToByteArray(thumbBmp, true);
+        msg.thumbData = MyWXUtil.bmpToByteArray(thumbBmp, true);
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("music");
@@ -331,10 +335,10 @@ public class MyWXShare extends BaseShare {
      *
      * @param helper
      */
-    public void shareImage(WXShareHelper.ImageHelperWX helper) {
+    public void shareImage(MyWXImageHelper helper) {
         shareImage(helper,null);
     }
-    public void shareImage(WXShareHelper.ImageHelperWX helper,  MyWXShareCallback callback) {
+    public void shareImage(MyWXImageHelper helper, MyWXShareCallback callback) {
         if (notShare(context, api)) {
             shareCancel(callback);
             return;
@@ -352,7 +356,7 @@ public class MyWXShare extends BaseShare {
 
         Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, helper.getDstWidth(), helper.getDstHeight(), true);
         bmp.recycle();
-        msg.thumbData = Util.bmpToByteArray(thumbBmp, true);
+        msg.thumbData = MyWXUtil.bmpToByteArray(thumbBmp, true);
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("image");
         req.message = msg;
@@ -366,11 +370,11 @@ public class MyWXShare extends BaseShare {
      *
      * @param helper
      */
-    public void shareText(WXShareHelper.TextHelperWX helper) {
+    public void shareText(MyWXTextHelper helper) {
         shareText(helper,null);
 
     }
-    public void shareText(WXShareHelper.TextHelperWX helper,  MyWXShareCallback callback) {
+    public void shareText(MyWXTextHelper helper, MyWXShareCallback callback) {
         if (notShare(context, api)) {
             shareCancel(callback);
             return;
@@ -457,9 +461,9 @@ public class MyWXShare extends BaseShare {
     }
 
     private void getUserInfo(final String authCode,final MyWXLoginCallback callback) {
-       MyRx.start(new MyFlowableSubscriber<WXUserInfo>() {
+       MyRx.start(new MyFlowableSubscriber<MyWXUserInfo>() {
            @Override
-           public void subscribe(FlowableEmitter<WXUserInfo> myFlowableEmitter) {
+           public void subscribe(FlowableEmitter<MyWXUserInfo> myFlowableEmitter) {
                Map<String,String>map=new HashMap<String,String>();
                map.put("appid",MyWXShare.getAppId());
                map.put("secret",MyWXShare.getAppSecret());
@@ -467,7 +471,7 @@ public class MyWXShare extends BaseShare {
                map.put("grant_type","authorization_code");
                try {
                    String content = getReultForHttpPost(loginUrl, map);
-                   WXUserInfo loginData = new Gson().fromJson(content, WXUserInfo.class);
+                   MyWXUserInfo loginData = new Gson().fromJson(content, MyWXUserInfo.class);
 
                    Map<String,String>infoMap=new HashMap<String,String>();
                    infoMap.put("access_token",loginData.getAccess_token());
@@ -476,14 +480,14 @@ public class MyWXShare extends BaseShare {
 
                    String infoContent = getReultForHttpPost(getInfoUrl, infoMap);
 
-                   WXUserInfo wxUserInfo = new Gson().fromJson(infoContent, WXUserInfo.class);
+                   MyWXUserInfo myWxUserInfo = new Gson().fromJson(infoContent, MyWXUserInfo.class);
 
-                   wxUserInfo.setScope(loginData.getScope());
-                   wxUserInfo.setAccess_token(loginData.getAccess_token());
-                   wxUserInfo.setExpires_in(loginData.getExpires_in());
-                   wxUserInfo.setRefresh_token(loginData.getRefresh_token());
+                   myWxUserInfo.setScope(loginData.getScope());
+                   myWxUserInfo.setAccess_token(loginData.getAccess_token());
+                   myWxUserInfo.setExpires_in(loginData.getExpires_in());
+                   myWxUserInfo.setRefresh_token(loginData.getRefresh_token());
 
-                   myFlowableEmitter.onNext(wxUserInfo);
+                   myFlowableEmitter.onNext(myWxUserInfo);
                    myFlowableEmitter.onComplete();
                } catch (IOException e) {
                    myFlowableEmitter.onError(new Throwable("微信登录获取用户信息失败"));
@@ -492,7 +496,7 @@ public class MyWXShare extends BaseShare {
            }
 
            @Override
-           public void onNext(WXUserInfo userInfo) {
+           public void onNext(MyWXUserInfo userInfo) {
                callback.loginSuccess(userInfo);
            }
 

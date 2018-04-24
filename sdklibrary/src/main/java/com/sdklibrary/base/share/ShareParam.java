@@ -27,4 +27,16 @@ public class ShareParam {
     @Retention(RetentionPolicy.SOURCE)
     public @interface MyShareType{};
 
+
+    //分享到哪里
+    public int scene;
+
+    public void setScene(@MyShareType int scene){
+        this.scene=scene;
+    }
+
+    public int getScene() {
+        return scene;
+    }
+
 }

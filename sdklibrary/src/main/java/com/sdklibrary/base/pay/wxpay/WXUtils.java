@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
-import com.sdklibrary.base.share.wx.Util;
+import com.sdklibrary.base.share.wx.MyWXUtil;
 
 import java.math.BigDecimal;
 import java.net.InetAddress;
@@ -86,7 +86,7 @@ public class WXUtils {
     }
     public static String getNonceStr() {
         Random random = new Random();
-        return Util.getMessageDigest(String.valueOf(random.nextInt(10000)).getBytes());
+        return MyWXUtil.getMessageDigest(String.valueOf(random.nextInt(10000)).getBytes());
     }
     public static double mul(double d1,double d2){
         BigDecimal bd1 = new BigDecimal(Double.toString(d1));

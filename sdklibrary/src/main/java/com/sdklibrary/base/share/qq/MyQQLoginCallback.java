@@ -1,9 +1,9 @@
 package com.sdklibrary.base.share.qq;
 
-import com.sdklibrary.base.share.qq.bean.QQUserInfo;
+import com.sdklibrary.base.share.qq.bean.MyQQUserInfo;
 
 public interface MyQQLoginCallback {
-    void loginSuccess(QQUserInfo userInfo);
+    void loginSuccess(MyQQUserInfo userInfo);
     void loginFail();
     void loginCancel();
 }

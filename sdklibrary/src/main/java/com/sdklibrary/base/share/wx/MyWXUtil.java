@@ -52,9 +52,9 @@ import cz.msebera.android.httpclient.params.HttpProtocolParams;
 import cz.msebera.android.httpclient.protocol.HTTP;
 import cz.msebera.android.httpclient.util.EntityUtils;
 
-public class Util {
+public class MyWXUtil {
 	
-	private static final String TAG = "baselibrary.Util";
+	private static final String TAG = "baselibrary.MyWXUtil";
 	
 	public static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
 		ByteArrayOutputStream output = new ByteArrayOutputStream();

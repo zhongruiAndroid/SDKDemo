@@ -5,7 +5,7 @@ package com.sdklibrary.base.share.wx;
  */
 
 public interface MyWXLoginCallback {
-    void loginSuccess(WXUserInfo userInfo);
+    void loginSuccess(MyWXUserInfo userInfo);
     void loginFail();
     void loginCancel();
 }

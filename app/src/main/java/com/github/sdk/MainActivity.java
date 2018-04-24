@@ -9,16 +9,17 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sdklibrary.base.pay.alipay.AliPayOrderBean;
 import com.sdklibrary.base.share.ShareParam;
 import com.sdklibrary.base.share.qq.MyQQActivityResult;
 import com.sdklibrary.base.share.qq.MyQQLoginCallback;
 import com.sdklibrary.base.share.qq.MyQQShare;
 import com.sdklibrary.base.share.qq.MyQQShareListener;
-import com.sdklibrary.base.share.qq.QQShareHelper;
-import com.sdklibrary.base.share.qq.bean.QQUserInfo;
+import com.sdklibrary.base.share.qq.bean.MyQQUserInfo;
+import com.sdklibrary.base.share.qq.bean.MyQQWebHelper;
 import com.sdklibrary.base.share.wx.MyWXShare;
 import com.sdklibrary.base.share.wx.MyWXShareCallback;
-import com.sdklibrary.base.share.wx.WXShareHelper;
+import com.sdklibrary.base.share.wx.bean.MyWXVideoHelper;
 import com.tencent.tauth.UiError;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String weixing_AppSecret = "";
     public static final String qq_id = "1106315352";
     public static final String qq_key = "xyTTuuJGORswRS6I";
-    private QQShareHelper.QQWebHelper qqHelper;
+    private MyQQWebHelper qqHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MyQQShare.setAppId(qq_id);
 
         initView();
+
+        AliPayOrderBean bean;
     }
 
     private void initView() {
@@ -99,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv_qq_friend_share:
                 //QQ好友分享
-                qqHelper=new QQShareHelper.QQWebHelper(ShareParam.QQ);
+                qqHelper=new MyQQWebHelper(ShareParam.QQ);
                 qqHelper.setTitle("QQ分享标题");
                 qqHelper.setDescription("QQ分享内容");
                 qqHelper.setUrl("http://47.92.28.70:1800/index.html");
@@ -122,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv_qq_qzone_share:
                 //QQ空间分享
-                qqHelper = new QQShareHelper.QQWebHelper(ShareParam.QZONE);
+                qqHelper = new MyQQWebHelper(ShareParam.QZONE);
                 qqHelper.setTitle("QQ分享标题");
                 qqHelper.setDescription("QQ分享内容");
                 qqHelper.setUrl("http://47.92.28.70:1800/index.html");
@@ -147,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //QQ登录
                 MyQQShare.newInstance(this).login(new MyQQLoginCallback() {
                     @Override
-                    public void loginSuccess(QQUserInfo userInfo) {
+                    public void loginSuccess(MyQQUserInfo userInfo) {
                         Log.i("===","==="+userInfo.toString());
                     }
                     @Override
@@ -167,7 +170,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void shareToWX(int scene) {
         //微信好友分享
-        WXShareHelper.WebHelperWX helper=new WXShareHelper.VideoHelperWX(scene);
+        MyWXVideoHelper helper=new MyWXVideoHelper(scene);
+        helper.setBitmap(null);
         helper.setBitmapResId(R.mipmap.ic_launcher);
         helper.setUrl("www.baidu.com");
         helper.setTitle("分享标题");
@@ -187,6 +191,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+
+    /*public void a(){
+        WXOrderBean wxOrderBean=new WXOrderBean();
+        wxOrderBean.setAppId(appId);
+        wxOrderBean.setMch_id(mch_id);
+        wxOrderBean.setMiyao(miyao);
+
+        wxOrderBean.setPrepayId(prepayId);
+        wxOrderBean.setSign(sign);
+        //packageValue默认为Sign=WXPay
+        wxOrderBean.setPackageValue(packageValue);
+        wxOrderBean.setTimeStamp(timeStamp);
+        *//*prepayId
+sign
+packageValue
+timeStamp*//*
+
+        wxOrderBean.setNotifyUrl(NotifyUrl);
+        wxOrderBean.setBody(Body);
+        wxOrderBean.setOut_trade_no(Out_trade_no);
+        //单位：分
+        wxOrderBean.setTotalFee(TotalFee);
+        //自动生成,可以不用赋值
+        wxOrderBean.IP="设备ip地址";
+        //自动生成,可以不用赋值
+        wxOrderBean.nonceStr="随机数";
+        MyWXPay.newInstance(this).startPay(wxOrderBean);
+        MyWXPay.newInstance(this).startPay(wxOrderBean, new MyWXPayCallback() {
+            @Override
+            public void paySuccess() {
+                //支付成功
+            }
+            @Override
+            public void payFail() {
+                //支付失败
+            }
+            @Override
+            public void payCancel() {
+                //支付取消
+            }
+        });
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
