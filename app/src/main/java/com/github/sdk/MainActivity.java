@@ -10,6 +10,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sdklibrary.base.pay.alipay.MyAliOrderBean;
+import com.sdklibrary.base.pay.alipay.MyAliPay;
+import com.sdklibrary.base.pay.alipay.MyAliPayCallback;
+import com.sdklibrary.base.pay.alipay.PayResult;
+import com.sdklibrary.base.pay.wxpay.MyWXOrderBean;
+import com.sdklibrary.base.pay.wxpay.MyWXPay;
+import com.sdklibrary.base.pay.wxpay.MyWXPayCallback;
 import com.sdklibrary.base.share.ShareParam;
 import com.sdklibrary.base.share.qq.MyQQActivityResult;
 import com.sdklibrary.base.share.qq.MyQQLoginCallback;
@@ -187,7 +193,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             @Override
             public void shareCancel() {
+                MyAliOrderBean a=new MyAliOrderBean();
+                MyWXOrderBean b=new MyWXOrderBean();
 
+/*如果getOrderInfo()null,否则属于app本地生成订单信息*/
+                MyAliPay.newInstance(null).startPay(null, new MyAliPayCallback() {
+                    @Override
+                    public void paySuccess(PayResult result) {
+                        // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
+                        //支付成功
+                    }
+                    @Override
+                    public void payFail() {
+                        //支付失败
+                    }
+                    @Override
+                    public void payCancel() {
+                        //支付取消
+                    }
+                });
+                MyWXPay.newInstance(null).startPay(null, new MyWXPayCallback() {
+                    @Override
+                    public void paySuccess() {
+                        //支付成功
+                    }
+                    @Override
+                    public void payFail() {
+                        //支付失败
+                    }
+                    @Override
+                    public void payCancel() {
+                        //支付取消
+                    }
+                });
+                
             }
         });
     }

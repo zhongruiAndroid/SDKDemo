@@ -71,6 +71,12 @@ public class MyWXOrderBean {
             this.IP = WXUtils.getIP(context);
         }
     }
+    public String getIP() {
+        return IP;
+    }
+    public void setIP(String IP) {
+        this.IP = IP;
+    }
 
     public String getAppId() {
         return appId;
