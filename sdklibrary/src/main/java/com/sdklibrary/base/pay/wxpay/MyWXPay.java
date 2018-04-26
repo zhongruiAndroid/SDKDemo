@@ -198,14 +198,16 @@ public class MyWXPay {
                     switch (wxEvent.responseCode) {
                         //正确返回
                         case BaseResp.ErrCode.ERR_OK:
-                            callback.paySuccess();
+                            if(callback!=null){
+                                callback.paySuccess();
+                            }
                             break;
                         //取消
                         case BaseResp.ErrCode.ERR_USER_CANCEL:
-                            callback.payCancel();
+                            if(callback!=null){callback.payCancel();}
                             break;
                         default:
-                            callback.payFail();
+                            if(callback!=null){callback.payFail();}
                             break;
                     }
                     MyRxBus.getInstance().dispose(payDisposable);
@@ -243,14 +245,14 @@ public class MyWXPay {
                     switch (wxEvent.responseCode) {
                         //正确返回
                         case BaseResp.ErrCode.ERR_OK:
-                            callback.paySuccess();
+                            if(callback!=null){callback.paySuccess();}
                             break;
                         //取消
                         case BaseResp.ErrCode.ERR_USER_CANCEL:
-                            callback.payCancel();
+                            if(callback!=null){callback.payCancel();}
                             break;
                         default:
-                            callback.payFail();
+                            if(callback!=null){callback.payFail();}
                             break;
                     }
                     MyRxBus.getInstance().dispose(payDisposable);
