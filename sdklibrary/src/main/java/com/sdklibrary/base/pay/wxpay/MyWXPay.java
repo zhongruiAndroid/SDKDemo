@@ -67,7 +67,7 @@ public class MyWXPay {
 
 
     public static String noInstallWXMsg="亲,您还没有安装微信APP哦!";
-    public static String notPay="亲,当前版本不支持微信支付功能!";
+    public static String notPayMsg ="亲,当前版本不支持微信支付功能!";
     /***
      *
      * @param APPID 应用id
@@ -118,8 +118,8 @@ public class MyWXPay {
             }
         } else {
             if (!api.isWXAppSupportAPI()) {
-                if(!TextUtils.isEmpty(notPay)){
-                    Toast.makeText(mContext,notPay,Toast.LENGTH_SHORT).show();
+                if(!TextUtils.isEmpty(notPayMsg)){
+                    Toast.makeText(mContext, notPayMsg,Toast.LENGTH_SHORT).show();
                 }
                 if(callback!=null){
                     callback.payFail();
