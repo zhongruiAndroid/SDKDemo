@@ -45,7 +45,7 @@ public class MyWXOrderBean {
      * 终端IP(必填)
      * 用户端实际ip
      */
-    public  String IP;//终端IP
+    public  String ip;//终端IP
     /**
      * 随机字符串(必填)
      * 随机字符串，不长于32位。推荐随机数生成算法
@@ -66,16 +66,16 @@ public class MyWXOrderBean {
         this.nonceStr=WXUtils.getNonceStr();
     }
 
-    public void setIP(Context context) {
-        if(TextUtils.isEmpty(this.IP)){
-            this.IP = WXUtils.getIP(context);
+    public void setIp(Context context) {
+        if(TextUtils.isEmpty(this.ip)){
+            this.ip = WXUtils.getIP(context);
         }
     }
-    public String getIP() {
-        return IP;
+    public String getIp() {
+        return ip;
     }
     public void setIP(String IP) {
-        this.IP = IP;
+        this.ip = IP;
     }
 
     public String getAppId() {

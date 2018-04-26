@@ -254,7 +254,7 @@ timeStamp*//*
         //单位：分
         wxOrderBean.setTotalFee(TotalFee);
         //自动生成,可以不用赋值
-        wxOrderBean.IP="设备ip地址";
+        wxOrderBean.ip="设备ip地址";
         //自动生成,可以不用赋值
         wxOrderBean.nonceStr="随机数";
         MyWXPay.newInstance(this).startPay(wxOrderBean);

@@ -64,6 +64,10 @@ public class MyWXPay {
     private static String appId;
     private static String mch_id;
     private static String miYao;
+
+
+    public static String noInstallWXMsg="亲,您还没有安装微信APP哦!";
+    public static String notPay="亲,当前版本不支持微信支付功能!";
     /***
      *
      * @param APPID 应用id
@@ -83,9 +87,6 @@ public class MyWXPay {
         return new MyWXPay(context);
     }
     public void startPay(MyWXOrderBean bean) {
-        if(bean!=null){
-            bean.setIP(mContext);
-        }
         startPay(bean,null);
     }
     public void startPay(MyWXOrderBean bean, final MyWXPayCallback callback) {
@@ -98,16 +99,29 @@ public class MyWXPay {
         if(TextUtils.isEmpty(bean.getMiyao())){
             bean.setMiyao(miYao);
         }
+        if(bean!=null){
+            bean.setIp(mContext);
+        }
         api = WXAPIFactory.createWXAPI(mContext,bean.getAppId());
         api.registerApp(bean.getAppId());
         orderBean =bean;
         req = new PayReq();
         sb = new StringBuffer();
         if (!api.isWXAppInstalled()) {
-            Toast.makeText(mContext,"亲,您还没有安装微信APP哦!",Toast.LENGTH_SHORT).show();
+            if(!TextUtils.isEmpty(noInstallWXMsg)){
+                Toast.makeText(mContext,noInstallWXMsg,Toast.LENGTH_SHORT).show();
+            }
+            if(callback!=null){
+                callback.payFail();
+            }
         } else {
             if (!api.isWXAppSupportAPI()) {
-                Toast.makeText(mContext,"亲,当前版本不支持微信支付功能!",Toast.LENGTH_SHORT).show();
+                if(!TextUtils.isEmpty(notPay)){
+                    Toast.makeText(mContext,notPay,Toast.LENGTH_SHORT).show();
+                }
+                if(callback!=null){
+                    callback.payFail();
+                }
             } else {
                 //用sign判断是否是服务器生成微信支付订单号和sign，
                 if(!TextUtils.isEmpty(bean.getSign())){
@@ -120,23 +134,33 @@ public class MyWXPay {
                             String entity = genProductArgs();
                             byte[] buf = MyWXUtil.httpPost(url, entity);
                             String content = new String(buf);
-                            Log.e("orion", content);
+                            Log.e("WXTag", content);
                             Map<String, String> xml = decodeXml(content);
                             flowableEmitter.onNext(xml);
                             flowableEmitter.onComplete();
                         }
                         @Override
                         public void onNext(Map<String, String> result) {
-                            if(result.get("return_code")!=null&&"FAIL".equals(result.get("return_code"))){
-                                Toast.makeText(mContext,"微信支付订单生成失败",Toast.LENGTH_SHORT).show();
-                                return;
+                            String returnCode=result.get("return_code");//返回状态码 SUCCESS/FAIL
+                            String returnMsg =result.get("return_msg");  //返回信息 OK/异常信息
+                            String resultCode=result.get("result_code");//结果状态码 SUCCESS/FAIL
+
+                            if("SUCCESS".equalsIgnoreCase(returnCode)&&"SUCCESS".equalsIgnoreCase(resultCode)){
+                                Log.e("WXTag", "生成预支付订单:" + result.get("prepay_id"));
+                                sb.append("prepay_id\n" + result.get("prepay_id") + "\n\n");
+                                requestPay(result.get("prepay_id"),callback);
+                            }else if("FAIL".equalsIgnoreCase(returnCode)){
+                                Log.e("WXTag","微信支付返回结果:"+returnMsg);
+                                if(callback!=null){
+                                    callback.payFail();
+                                }
+                            }else{
+                                String err_code_des=result.get("err_code_des");//错误代码描述
+                                Log.e("WXTag","微信支付返回结果:"+err_code_des);
+                                if(callback!=null){
+                                    callback.payFail();
+                                }
                             }
-                            if(result.get("err_code_des")!=null){
-                                Toast.makeText(mContext,result.get("err_code_des"),Toast.LENGTH_SHORT).show();
-                            }
-                            Log.e("Tag", "生成预支付订单:" + result.get("prepay_id"));
-                            sb.append("prepay_id\n" + result.get("prepay_id") + "\n\n");
-                            requestPay(result.get("prepay_id"),callback);
                         }
                         @Override
                         public void onError(Throwable t) {
@@ -291,7 +315,7 @@ public class MyWXPay {
             packageParams.add(new BasicNameValuePair("nonce_str", orderBean.nonceStr));
             packageParams.add(new BasicNameValuePair("notify_url", notifyUrl));
             packageParams.add(new BasicNameValuePair("out_trade_no", orderBean.getOut_trade_no()));
-            packageParams.add(new BasicNameValuePair("spbill_create_ip", orderBean.IP));
+            packageParams.add(new BasicNameValuePair("spbill_create_ip", orderBean.ip));
 //            if(BuildConfig.DEBUG){
 //                packageParams.add(new BasicNameValuePair("total_fee", 1+""));
 //            }else{
