@@ -1,8 +1,5 @@
 package com.sdklibrary.base.pay.wxpay;
 
-import android.content.Context;
-import android.text.TextUtils;
-
 /**
  * Created by administartor on 2017/8/28.
  */
@@ -66,16 +63,12 @@ public class MyWXOrderBean {
         this.nonceStr=WXUtils.getNonceStr();
     }
 
-    public void setIp(Context context) {
-        if(TextUtils.isEmpty(this.ip)){
-            this.ip = WXUtils.getIP(context);
-        }
-    }
     public String getIp() {
         return ip;
     }
-    public void setIP(String IP) {
-        this.ip = IP;
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
     public String getAppId() {

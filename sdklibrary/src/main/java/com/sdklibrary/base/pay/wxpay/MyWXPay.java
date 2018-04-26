@@ -100,7 +100,9 @@ public class MyWXPay {
             bean.setMiyao(miYao);
         }
         if(bean!=null){
-            bean.setIp(mContext);
+            if(TextUtils.isEmpty(bean.ip)){
+                bean.ip = WXUtils.getIP(mContext);
+            }
         }
         api = WXAPIFactory.createWXAPI(mContext,bean.getAppId());
         api.registerApp(bean.getAppId());
