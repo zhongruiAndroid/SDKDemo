@@ -78,6 +78,28 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
     }
 });
 ```
+### 支付宝官方混淆规则
+```
+-keep class com.alipay.android.app.IAlixPay{*;}
+-keep class com.alipay.android.app.IAlixPay$Stub{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
+-keep class com.alipay.sdk.app.PayTask{ public *;}
+-keep class com.alipay.sdk.app.AuthTask{ public *;}
+-keep class com.alipay.sdk.app.H5PayCallback {
+    <fields>;
+    <methods>;
+}
+-keep class com.alipay.android.phone.mrpc.core.** { *; }
+-keep class com.alipay.apmobilesecuritysdk.** { *; }
+-keep class com.alipay.mobile.framework.service.annotation.** { *; }
+-keep class com.alipay.mobilesecuritysdk.face.** { *; }
+-keep class com.alipay.tscenter.biz.rpc.** { *; }
+-keep class org.json.alipay.** { *; }
+-keep class com.alipay.tscenter.** { *; }
+-keep class com.ta.utdid2.** { *;}
+-keep class com.ut.device.** { *;}
+```
 <br/>  
 
 # 微信支付  
@@ -91,7 +113,7 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
 | setOut_trade_no         | 自己服务器生成的订单号                                                       |         √        |          ×         |
 | setTotalFee             | 订单金额(单位:分)                                                            |         √        |          ×         |
 | setBody                 | 订单具体描述信息                                                             |         √        |          ×         |
-| IP                      | 设备IP                                                                       |         √        |          ×         |
+| ip                      | 设备ip                                                                       |         √        |          ×         |
 | nonceStr                | 随机数                                                                       |         √        |          ×         |
 | setPrepayId             | 微信支付订单号                                                               |         ×        |          √         |
 | setSign                 | 请求微信支付所需要的签名(不是app签名)                                        |         ×        |          √         |
@@ -169,8 +191,8 @@ wxOrderBean.setBody(body);
 wxOrderBean.setOut_trade_no(out_trade_no);
 //订单金额，单位：分
 wxOrderBean.setTotalFee(totalFee);
-//IP和nonceStr两个参数在支付之前自动赋值,可以不用手动赋值
-wxOrderBean.IP="设备ip地址";
+//ip和nonceStr两个参数在支付之前自动赋值,可以不用手动赋值
+wxOrderBean.ip="设备ip地址";
 wxOrderBean.nonceStr="随机数";
 
 /********************************服务器生成支付订单信息传参*********************************************/
@@ -203,3 +225,24 @@ MyWXPay.newInstance(this).startPay(wxOrderBean, new MyWXPayCallback() {
 MyWXPay.newInstance(this).startPay(wxOrderBean);
 ```
 **如果微信分享、支付、登录不成功，请仔细检查相关配置(微信开放平台是否配置相关信息，应用包名、应用签名是否配置正确)和app是否进行签名**
+### 微信官方混淆规则
+```
+-keep class com.tencent.mm.opensdk.** {
+*;
+}
+-keep class com.tencent.wxop.** {
+*;
+}
+-keep class com.tencent.mm.sdk.** {
+*;
+}
+-keep class com.tencent.mm.opensdk.** {
+*;
+}
+-keep class com.tencent.wxop.** {
+*;
+}
+-keep class com.tencent.mm.sdk.** {
+*;
+}
+```
