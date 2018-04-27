@@ -484,6 +484,14 @@ MyQQShare.newInstance(this).shareWeb(helper, new MyQQShareListener() {
     
 # QQ登录
 ```
+//在分享或者登录的Activity中配置,建议在父类统一配置,不配置会导致回调函数不执行
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    MyQQActivityResult.onActivityResult(requestCode,resultCode,data);
+}
+
+
 /*建议放到application初始化*/
 MyQQShare.setAppId(appid);
 MyQQShare.newInstance(this).login(new MyQQLoginCallback() {
