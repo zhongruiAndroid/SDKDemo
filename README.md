@@ -245,4 +245,33 @@ MyWXPay.newInstance(this).startPay(wxOrderBean);
 -keep class com.tencent.mm.sdk.** {
 *;
 }
+```  
+# 微信分享
+```
+//分享网页
+MyWXWebHelper helper=new MyWXWebHelper(scene);
+//scene参数说明
+//分享好友：ShareParam.friend：
+//分享朋友圈：ShareParam.friendCircle
+//收藏：ShareParam.favorite
+
+helper.setBitmap(bitmap);
+//或者helper.setBitmapResId(R.mipmap.ic_launcher);
+helper.setUrl("目标网址");
+helper.setTitle("分享的标题");
+helper.setDescription("分享的内容");
+MyWXShare.newInstance(this).shareWeb(helper, new MyWXShareCallback() {
+    @Override
+    public void shareSuccess() {
+	//分享成功
+    }
+    @Override
+    public void shareFail() {
+	//分享失败
+    }
+    @Override
+    public void shareCancel() {
+	//分享取消
+    }
+});
 ```
