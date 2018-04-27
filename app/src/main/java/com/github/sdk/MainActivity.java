@@ -25,7 +25,9 @@ import com.sdklibrary.base.share.qq.bean.MyQQUserInfo;
 import com.sdklibrary.base.share.qq.bean.MyQQWebHelper;
 import com.sdklibrary.base.share.wx.MyWXShare;
 import com.sdklibrary.base.share.wx.MyWXShareCallback;
+import com.sdklibrary.base.share.wx.bean.MyWXTextHelper;
 import com.sdklibrary.base.share.wx.bean.MyWXVideoHelper;
+import com.sdklibrary.base.share.wx.bean.MyWXWebHelper;
 import com.tencent.tauth.UiError;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -279,5 +281,52 @@ timeStamp*//*
         super.onActivityResult(requestCode, resultCode, data);
         //qq分享配置
         MyQQActivityResult.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    public void text(){
+        MyWXTextHelper helper=new MyWXTextHelper(ShareParam.friend);
+        helper.setTitle("文本标题");
+        helper.setText("文本内容");
+        helper.setDescription("文本描述");
+        MyWXShare.newInstance(this).shareText(helper);
+    }
+    public void a(){
+//        MyWXVideoHelper helper=new MyWXVideoHelper(ShareParam.friend);
+//        helper.setUrl("");
+
+        MyWXWebHelper helper=new MyWXVideoHelper(ShareParam.friend);
+        helper.setUrl("网页url");
+        helper.setTitle("网页标题");
+        helper.setDescription("网页描述");
+        MyWXShare.newInstance(this).shareAudio(helper, new MyWXShareCallback() {
+            @Override
+            public void shareSuccess() {
+
+            }
+            @Override
+            public void shareFail() {
+
+            }
+            @Override
+            public void shareCancel() {
+
+            }
+        });
+
+        MyWXShare.newInstance(this).shareWeb(helper, new MyWXShareCallback() {
+            @Override
+            public void shareSuccess() {
+
+            }
+            @Override
+            public void shareFail() {
+
+            }
+            @Override
+            public void shareCancel() {
+
+            }
+        });
     }
 }

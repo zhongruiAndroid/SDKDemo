@@ -59,6 +59,10 @@ public class MyWXShare extends BaseShare {
     private MyDisposable disposable;
     private MyDisposable loginDisposable;
 
+
+    public static String noInstallWXMsg="亲,您还没有安装微信APP哦!";
+    public static String notShareMsg ="亲,当前版本不支持微信相关功能!";
+
     public static String getAppId() {
         return appId;
     }
@@ -110,7 +114,7 @@ public class MyWXShare extends BaseShare {
     }
     public void shareVideo(MyWXWebHelper helper, MyWXShareCallback callback) {
         if (notShare(context, api)) {
-            shareCancel(callback);
+            noInstallShareFail(callback);
             return;
         }
         WXVideoObject video = new WXVideoObject();
@@ -145,7 +149,7 @@ public class MyWXShare extends BaseShare {
     }
     public void shareVideo(MyWXVideoHelper helper, MyWXShareCallback callback) {
         if (notShare(context, api)) {
-            shareCancel(callback);
+            noInstallShareFail(callback);
             return;
         }
         WXVideoObject video = new WXVideoObject();
@@ -182,7 +186,7 @@ public class MyWXShare extends BaseShare {
 
     public void shareWeb(MyWXWebHelper helper, final MyWXShareCallback callback) {
         if (notShare(context, api)) {
-            shareCancel(callback);
+            noInstallShareFail(callback);
             return;
         }
         WXWebpageObject wxWebpageObject = new WXWebpageObject();
@@ -213,17 +217,21 @@ public class MyWXShare extends BaseShare {
         api.sendReq(req);
     }
 
-    private void shareCancel(MyWXShareCallback callback) {
+    /*private void shareCancel(MyWXShareCallback callback) {
         if (callback != null) {
             callback.shareCancel();
         }
+    }*/
+    private void noInstallShareFail(MyWXShareCallback callback) {
+        if (callback != null) {
+            callback.shareFail();
+        }
     }
-    private void shareCancel(MyWXLoginCallback callback) {
+    private void noInstallLoginFail(MyWXLoginCallback callback) {
         if (callback != null) {
             callback.loginCancel();
         }
     }
-
     private void subscribeShare(final MyWXShareCallback callback) {
         if (callback != null) {
             //正确返回
@@ -261,7 +269,7 @@ public class MyWXShare extends BaseShare {
     }
     public void shareAudio(MyWXWebHelper helper, MyWXShareCallback callback) {
         if (notShare(context, api)) {
-            shareCancel(callback);
+            noInstallShareFail(callback);
             return;
         }
         WXMusicObject music = new WXMusicObject();
@@ -299,7 +307,7 @@ public class MyWXShare extends BaseShare {
     }
     public void shareAudio(MyWXVideoHelper helper, MyWXShareCallback callback) {
         if (notShare(context, api)) {
-            shareCancel(callback);
+            noInstallShareFail(callback);
             return;
         }
         WXMusicObject music = new WXMusicObject();
@@ -340,7 +348,7 @@ public class MyWXShare extends BaseShare {
     }
     public void shareImage(MyWXImageHelper helper, MyWXShareCallback callback) {
         if (notShare(context, api)) {
-            shareCancel(callback);
+            noInstallShareFail(callback);
             return;
         }
         Bitmap bmp;
@@ -376,7 +384,7 @@ public class MyWXShare extends BaseShare {
     }
     public void shareText(MyWXTextHelper helper, MyWXShareCallback callback) {
         if (notShare(context, api)) {
-            shareCancel(callback);
+            noInstallShareFail(callback);
             return;
         }
         WXTextObject textObj = new WXTextObject();
@@ -385,10 +393,14 @@ public class MyWXShare extends BaseShare {
         WXMediaMessage msg = new WXMediaMessage();
         msg.mediaObject = textObj;
 
-        if (helper.getTitle() != null) {
+        if (!TextUtils.isEmpty(helper.getTitle())) {
             msg.title = helper.getTitle();
         }
-        msg.description = helper.getDescription();
+        if(TextUtils.isEmpty(helper.getDescription())){
+            msg.description =helper.getText();
+        }else{
+            msg.description = helper.getDescription();
+        }
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("text");
@@ -402,6 +414,9 @@ public class MyWXShare extends BaseShare {
     public boolean isInstall() {
         return api.isWXAppInstalled();
     }
+    public boolean noInstall() {
+        return !isInstall();
+    }
 
     private boolean notShare(Context context, IWXAPI api) {
         /* boolean b = api.registerApp(app_id);
@@ -411,11 +426,15 @@ public class MyWXShare extends BaseShare {
         }*/
         boolean notShare = false;
         if (!api.isWXAppInstalled()) {
-            Toast.makeText(context, "亲,您还没有安装微信APP哦!", Toast.LENGTH_SHORT).show();
+            if(!TextUtils.isEmpty(noInstallWXMsg)){
+                Toast.makeText(context, "亲,您还没有安装微信APP哦!", Toast.LENGTH_SHORT).show();
+            }
             notShare = true;
         } else {
             if (!api.isWXAppSupportAPI()) {
-                Toast.makeText(context, "亲,当前版本不支持微信相关功能!", Toast.LENGTH_SHORT).show();
+                if(!TextUtils.isEmpty(notShareMsg)){
+                    Toast.makeText(context, "亲,当前版本不支持微信相关功能!", Toast.LENGTH_SHORT).show();
+                }
                 notShare = true;
             }
         }
@@ -429,7 +448,7 @@ public class MyWXShare extends BaseShare {
     }
     public void login(final MyWXLoginCallback callback) {
         if (notShare(context, api)) {
-            shareCancel(callback);
+            noInstallLoginFail(callback);
             return;
         }
         final SendAuth.Req req = new SendAuth.Req();
