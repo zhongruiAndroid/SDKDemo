@@ -124,7 +124,7 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
 
 ### 微信支付示例
 ```
-<!--微信支付所需权限-->
+<!--微信所需权限-->
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -318,6 +318,31 @@ MyWXShare.newInstance(this).shareWeb(helper, new MyWXShareCallback() {
 | setDstHeight(默认150)     | 缩略图高度 |     √    |
   
   # 微信登录
+  ```
+<!--微信所需权限-->
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<!--微信登录和分享Activity配置-->
+<activity
+    android:name="包名.wxapi.WXEntryActivity"
+    android:configChanges="keyboardHidden|orientation|screenSize"
+    android:exported="true"
+    android:screenOrientation="portrait"
+    android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+<!--微信支付Activity配置-->
+<activity 
+    android:name="包名.wxapi.WXPayEntryActivity"
+    android:theme="@android:style/Theme.Translucent.NoTitleBar"
+    >
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <!--这里填写自己的appid,貌似不写也可以-->
+        <data android:scheme="wx957fd60b70d04b60"/>
+    </intent-filter>
+</activity>
+```
 ```
 /*判断是否安装微信*/
 MyWXShare.newInstance(this).isInstall()
@@ -354,3 +379,25 @@ MyWXShare.newInstance(this).login(new MyWXLoginCallback() {
 | scope            | 用户授权的作用域,使用逗号（,）分隔                                                          |
 | language         | 国家地区语言版本,zh_CN 简体,zh_TW 繁体,en 英语,默认为zh-CN                                  |
 | privilege        | 用户特权信息，json数组，如微信沃卡用户为（chinaunicom）                                     |
+  
+  ### 微信官方混淆规则
+```
+-keep class com.tencent.mm.opensdk.** {
+*;
+}
+-keep class com.tencent.wxop.** {
+*;
+}
+-keep class com.tencent.mm.sdk.** {
+*;
+}
+-keep class com.tencent.mm.opensdk.** {
+*;
+}
+-keep class com.tencent.wxop.** {
+*;
+}
+-keep class com.tencent.mm.sdk.** {
+*;
+}
+```  
