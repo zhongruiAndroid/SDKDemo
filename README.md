@@ -401,3 +401,80 @@ MyWXShare.newInstance(this).login(new MyWXLoginCallback() {
 *;
 }
 ```  
+  
+  # QQ分享
+```
+<!--QQ权限配置-->
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+<activity
+    android:name="com.tencent.tauth.AuthActivity"
+    android:noHistory="true"
+    android:launchMode="singleTask">
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="tencent[你的appid]" />
+        <!--例如-->
+        <!--<data android:scheme="tencent88888888" />-->
+    </intent-filter>
+</activity>
+<activity
+    android:name="com.tencent.connect.common.AssistActivity"
+    android:screenOrientation="behind"
+    android:theme="@android:style/Theme.Translucent.NoTitleBar"
+    android:configChanges="orientation|keyboardHidden">
+</activity>
+
+```
+```
+//返回Tencent类的实例:MyQQShare.newInstance(this).getTencent();
+
+//在分享或者登录的Activity中配置,建议在父类统一配置,不配置会导致回调函数不执行
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    MyQQActivityResult.onActivityResult(requestCode,resultCode,data);
+}
+
+MyQQWebHelper helper=new MyQQWebHelper(scene);
+//scene参数说明
+//QQ好友：ShareParam.QQ
+//空间：ShareParam.QZONE
+MyQQShare.newInstance(this).shareWeb(helper, new MyQQShareListener() {
+    @Override
+    public void doComplete(Object o) {
+        //分享成功
+    }
+    @Override
+    public void doError(UiError uiError) {
+        //分享失败
+    }
+    @Override
+    public void doCancel() {
+        //取消分享
+    }
+});
+```
+| MyQQWebHelper(图文分享)   | 说明                                  |
+|---------------------------|---------------------------------------|
+| setTitle                  | 标题                                  |
+| setDescription            | 摘要                                  |
+| setUrl                    | 页面链接                              |
+| setImagePath或setImageUrl | 图片(手机本地图片路径或者网络图片url) |
+|                           |                                       |
+  
+  | MyQQImageHelper(图片分享) | 说明                                  |
+|---------------------------|---------------------------------------|
+| setImagePath              | 需要分享的本地图片路径(不能是网络图片url)                | 
+  
+  | MyQQAudioHelper(音乐分享) | 说明                                                | 是否必填 |
+|---------------------------|-----------------------------------------------------|:--------:|
+| setTitle                  | 标题                                                |     √    |
+| setDescription            | 摘要                                                |     ×    |
+| setUrl                    | 页面跳转链接                                        |     √    |
+| setAudioUrl               | 音乐文件的远程链接, 以URL的形式传入, 不支持本地音乐 |     √    |
+| setImagePath               | 分享图片的URL或者本地路径                           |     ×    |
+| setAppName                | 应用名称                                            |     ×    |
