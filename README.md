@@ -431,7 +431,8 @@ MyWXShare.newInstance(this).login(new MyWXLoginCallback() {
 ```
 ```
 //返回Tencent类的实例:MyQQShare.newInstance(this).getTencent();
-
+//检查是否有安装QQ
+MyQQShare.newInstance(this).isInstall()
 //在分享或者登录的Activity中配置,建议在父类统一配置,不配置会导致回调函数不执行
 @Override
 public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -478,3 +479,25 @@ MyQQShare.newInstance(this).shareWeb(helper, new MyQQShareListener() {
 | setAudioUrl               | 音乐文件的远程链接, 以URL的形式传入, 不支持本地音乐 |     √    |
 | setImagePath               | 分享图片的URL或者本地路径                           |     ×    |
 | setAppName                | 应用名称                                            |     ×    |
+  
+    
+    
+# QQ登录
+```
+/*建议放到application初始化*/
+MyQQShare.setAppId(appid);
+MyQQShare.newInstance(this).login(new MyQQLoginCallback() {
+    @Override
+    public void loginSuccess(MyQQUserInfo userInfo) {
+        //登录成功
+    }
+    @Override
+    public void loginFail() {
+        //登录失败
+    }
+    @Override
+    public void loginCancel() {
+        //取消登录
+    }
+});
+```
