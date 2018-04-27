@@ -21,10 +21,16 @@ import com.sdklibrary.base.share.qq.MyQQActivityResult;
 import com.sdklibrary.base.share.qq.MyQQLoginCallback;
 import com.sdklibrary.base.share.qq.MyQQShare;
 import com.sdklibrary.base.share.qq.MyQQShareListener;
+import com.sdklibrary.base.share.qq.bean.MyQQAppHelper;
+import com.sdklibrary.base.share.qq.bean.MyQQAudioHelper;
+import com.sdklibrary.base.share.qq.bean.MyQQImageHelper;
 import com.sdklibrary.base.share.qq.bean.MyQQUserInfo;
 import com.sdklibrary.base.share.qq.bean.MyQQWebHelper;
+import com.sdklibrary.base.share.wx.MyWXLoginCallback;
 import com.sdklibrary.base.share.wx.MyWXShare;
 import com.sdklibrary.base.share.wx.MyWXShareCallback;
+import com.sdklibrary.base.share.wx.MyWXUserInfo;
+import com.sdklibrary.base.share.wx.bean.MyWXImageHelper;
 import com.sdklibrary.base.share.wx.bean.MyWXTextHelper;
 import com.sdklibrary.base.share.wx.bean.MyWXVideoHelper;
 import com.sdklibrary.base.share.wx.bean.MyWXWebHelper;
@@ -291,6 +297,131 @@ timeStamp*//*
         helper.setDescription("文本描述");
         MyWXShare.newInstance(this).shareText(helper);
     }
+    public void img(){
+        MyWXImageHelper helper=new MyWXImageHelper(ShareParam.friend);
+        helper.setBitmapResId(R.drawable.textclear);
+        helper.setBitmap(null);
+        helper.setDstWidth(150);
+        helper.setDstHeight(150);
+    }
+    public void qqLogin(){
+        MyQQShare.newInstance(this).isInstall();
+        MyQQShare.newInstance(this).login(new MyQQLoginCallback() {
+            @Override
+            public void loginSuccess(MyQQUserInfo userInfo) {
+                //登录成功
+            }
+            @Override
+            public void loginFail() {
+                //登录失败
+            }
+            @Override
+            public void loginCancel() {
+                //取消登录
+            }
+        });
+    }
+    public void qqShareApp(){
+        MyQQAppHelper helper=new MyQQAppHelper();
+        helper.setTitle("");
+        helper.setDescription("");
+        helper.setImageUrl("");
+        helper.setAppName("");
+        helper.setArkJson("");
+        MyQQShare.newInstance(this).shareApp(helper, new MyQQShareListener() {
+            @Override
+            public void doComplete(Object o) {
+                //分享成功
+            }
+            @Override
+            public void doError(UiError uiError) {
+                //分享失败
+            }
+            @Override
+            public void doCancel() {
+                //取消分享
+            }
+        });
+    }
+    public void qqShareAudio(){
+        MyQQAudioHelper helper=new MyQQAudioHelper();
+        helper.setTitle("");
+        helper.setDescription("");
+        helper.setUrl("");
+        helper.setAppName("");
+        helper.setAudioUrl("");
+        helper.setImagePath("");
+        MyQQShare.newInstance(this).shareAudio(helper, new MyQQShareListener() {
+            @Override
+            public void doComplete(Object o) {
+                //分享成功
+            }
+            @Override
+            public void doError(UiError uiError) {
+                //分享失败
+            }
+            @Override
+            public void doCancel() {
+                //取消分享
+            }
+        });
+    }
+    public void qqShareImg(){
+        MyQQImageHelper helper=new MyQQImageHelper();
+        helper.setImagePath(null);
+        MyQQShare.newInstance(this).shareImage(helper, new MyQQShareListener() {
+            @Override
+            public void doComplete(Object o) {
+                //分享成功
+            }
+            @Override
+            public void doError(UiError uiError) {
+                //分享失败
+            }
+            @Override
+            public void doCancel() {
+                //取消分享
+            }
+        });
+    }
+    public void qqShare(){
+        MyQQShare.newInstance(this).getTencent();
+        MyQQWebHelper helper=new MyQQWebHelper(ShareParam.QZONE);
+        helper.setTitle("");
+        helper.setDescription("");
+        helper.setImageUrl("");
+        helper.setUrl("");
+        MyQQShare.newInstance(this).shareWeb(helper, new MyQQShareListener() {
+            @Override
+            public void doComplete(Object o) {
+                //分享成功
+            }
+            @Override
+            public void doError(UiError uiError) {
+                //分享失败
+            }
+            @Override
+            public void doCancel() {
+                //取消分享
+            }
+        });
+    }
+    public void wxLogin(){
+        MyWXShare.newInstance(this).login(new MyWXLoginCallback() {
+            @Override
+            public void loginSuccess(MyWXUserInfo userInfo) {
+
+            }
+            @Override
+            public void loginFail() {
+
+            }
+            @Override
+            public void loginCancel() {
+
+            }
+        });
+    }
     public void a(){
 //        MyWXVideoHelper helper=new MyWXVideoHelper(ShareParam.friend);
 //        helper.setUrl("");
@@ -299,6 +430,7 @@ timeStamp*//*
         helper.setUrl("网页url");
         helper.setTitle("网页标题");
         helper.setDescription("网页描述");
+        helper.setBitmap(null);
         MyWXShare.newInstance(this).shareAudio(helper, new MyWXShareCallback() {
             @Override
             public void shareSuccess() {

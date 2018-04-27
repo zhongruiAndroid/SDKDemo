@@ -1,6 +1,7 @@
 package com.sdklibrary.base.share.wx.bean;
 
 import android.graphics.Bitmap;
+import android.support.annotation.DrawableRes;
 
 import com.sdklibrary.base.share.ShareParam;
 
@@ -42,7 +43,7 @@ public class MyWXImageHelper extends ShareParam {
         return bitmapResId;
     }
 
-    public void setBitmapResId(int bitmapResId) {
+    public void setBitmapResId(@DrawableRes int bitmapResId) {
         this.bitmapResId = bitmapResId;
     }
 }

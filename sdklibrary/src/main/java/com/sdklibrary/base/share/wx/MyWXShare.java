@@ -76,6 +76,7 @@ public class MyWXShare extends BaseShare {
         appSecret = secret;
     }
 
+
     private MyWXShare(Context context) {
         this(context, null);
     }

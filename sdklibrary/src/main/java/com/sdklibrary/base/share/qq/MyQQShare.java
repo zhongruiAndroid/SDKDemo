@@ -87,6 +87,9 @@ public class MyQQShare extends BaseShare{
     *   </activity>
     * */
     private static String appId;
+    public boolean noInstall(){
+        return !isInstall();
+    }
     public boolean isInstall(){
         if(mTencent==null){
             mTencent  = Tencent.createInstance(appId,context);
@@ -119,9 +122,6 @@ public class MyQQShare extends BaseShare{
 
 
     /*******************************************************分享***********************************************************************/
-    public void shareToQZone(MyQQWebHelper helper, MyQQShareListener listener) {
-        shareWeb(helper,listener);
-    }
     public void shareWeb(MyQQWebHelper helper, MyQQShareListener listener) {
         final Bundle params = new Bundle();
         //默认web形式分享
@@ -161,7 +161,7 @@ public class MyQQShare extends BaseShare{
         params.putString(QQShare.SHARE_TO_QQ_TITLE, helper.getTitle());
         params.putString(QQShare.SHARE_TO_QQ_SUMMARY,  helper.getDescription());
         params.putString(QQShare.SHARE_TO_QQ_TARGET_URL, helper.getUrl());
-        params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, helper.getImageUrl());
+        params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, helper.getImagePath());
         params.putString(QQShare.SHARE_TO_QQ_AUDIO_URL, helper.getAudioUrl());
         params.putString(QQShare.SHARE_TO_QQ_APP_NAME, helper.getAppName());
 //        params.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO_QQ_FLAG_QZONE_AUTO_OPEN);

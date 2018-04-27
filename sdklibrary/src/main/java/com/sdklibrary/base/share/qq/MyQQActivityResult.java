@@ -21,6 +21,7 @@ public class MyQQActivityResult {
                 }
                 @Override
                 public void doError(UiError e) {
+
                 }
                 @Override
                 public void doCancel() {
