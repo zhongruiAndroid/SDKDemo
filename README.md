@@ -275,3 +275,44 @@ MyWXShare.newInstance(this).shareWeb(helper, new MyWXShareCallback() {
     }
 });
 ```
+
+  
+  | MyWXWebHelper(分享网页)              | 说明     | 是否必填 |
+|-----------------------------|----------|:--------:|
+| setUrl                      | 网页url  |     √    |
+| setTitle                    | 网页标题 |     √    |
+| setDescription              | 网页描述 |     √    |
+| setBitmap或者setBitmapResId | 缩略图     |     √    |
+| 图片大小不能超过32K |          |          |
+  
+| MyWXTextHelper(分享文本) | 说明                     | 是否必填 |
+|----------------|--------------------------|:--------:|
+| setText        | 文本内容                 |     √    |
+| setTitle       | 文本标题                 |     ×    |
+| setDescription | 文本描述(默认为文本内容) |     ×    |
+  
+  | MyWXImageHelper(分享图片)            | 说明     | 是否必填 |
+|---------------------------|----------|:--------:|
+| setBitmap或setBitmapResId | 图片     |     √    |
+| setDstWidth(默认150)      | 缩略图宽度 |     √    |
+| setDstHeight(默认150)     | 缩略图高度 |     √    |
+  
+  | MyWXVideoHelper(分享视频)            | 说明       | 是否必填 |
+|---------------------------|------------|:--------:|
+| setUrl                    | 视频url    |     √    |
+| setTitle                  | 视频标题   |     √    |
+| setDescription            | 视频描述   |     √    |
+| setBitmap或setBitmapResId | 缩略图     |     √    |
+| setDstWidth(默认150)      | 缩略图宽度 |     √    |
+| setDstHeight(默认150)     | 缩略图高度 |     √    |
+
+  
+  | MyWXWebHelper(分享音乐)   | 说明       | 是否必填 |
+|---------------------------|------------|:--------:|
+| setUrl                    | 音乐url    |     √    |
+| setTitle                  | 音乐标题   |     √    |
+| setDescription            | 音乐描述   |     √    |
+| setBitmap或setBitmapResId | 缩略图     |     √    |
+| MyWXVideoHelper           |            |          |
+| setDstWidth(默认150)      | 缩略图宽度 |     √    |
+| setDstHeight(默认150)     | 缩略图高度 |     √    |
