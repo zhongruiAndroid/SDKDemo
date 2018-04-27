@@ -124,7 +124,7 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
 
 ### 微信支付示例
 ```
-<!--微信支付所需权限-->
+<!--微信所需权限-->
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -272,6 +272,240 @@ MyWXShare.newInstance(this).shareWeb(helper, new MyWXShareCallback() {
     @Override
     public void shareCancel() {
 	//分享取消
+    }
+});
+```
+
+  
+  | MyWXWebHelper(分享网页)              | 说明     | 是否必填 |
+|-----------------------------|----------|:--------:|
+| setUrl                      | 网页url  |     √    |
+| setTitle                    | 网页标题 |     √    |
+| setDescription              | 网页描述 |     √    |
+| setBitmap或者setBitmapResId | 缩略图     |     √    |
+| 图片大小不能超过32K |          |          |
+  
+| MyWXTextHelper(分享文本) | 说明                     | 是否必填 |
+|----------------|--------------------------|:--------:|
+| setText        | 文本内容                 |     √    |
+| setTitle       | 文本标题                 |     ×    |
+| setDescription | 文本描述(默认为文本内容) |     ×    |
+  
+  | MyWXImageHelper(分享图片)            | 说明     | 是否必填 |
+|---------------------------|----------|:--------:|
+| setBitmap或setBitmapResId | 图片     |     √    |
+| setDstWidth(默认150)      | 缩略图宽度 |     √    |
+| setDstHeight(默认150)     | 缩略图高度 |     √    |
+  
+  | MyWXVideoHelper(分享视频)            | 说明       | 是否必填 |
+|---------------------------|------------|:--------:|
+| setUrl                    | 视频url    |     √    |
+| setTitle                  | 视频标题   |     √    |
+| setDescription            | 视频描述   |     √    |
+| setBitmap或setBitmapResId | 缩略图     |     √    |
+| setDstWidth(默认150)      | 缩略图宽度 |     √    |
+| setDstHeight(默认150)     | 缩略图高度 |     √    |
+
+  
+  | MyWXWebHelper(分享音乐)   | 说明       | 是否必填 |
+|---------------------------|------------|:--------:|
+| setUrl                    | 音乐url    |     √    |
+| setTitle                  | 音乐标题   |     √    |
+| setDescription            | 音乐描述   |     √    |
+| setBitmap或setBitmapResId | 缩略图     |     √    |
+| MyWXVideoHelper           |            |          |
+| setDstWidth(默认150)      | 缩略图宽度 |     √    |
+| setDstHeight(默认150)     | 缩略图高度 |     √    |
+  
+  # 微信登录
+  ```
+<!--微信所需权限-->
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<!--微信登录和分享Activity配置-->
+<activity
+    android:name="包名.wxapi.WXEntryActivity"
+    android:configChanges="keyboardHidden|orientation|screenSize"
+    android:exported="true"
+    android:screenOrientation="portrait"
+    android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+<!--微信支付Activity配置-->
+<activity 
+    android:name="包名.wxapi.WXPayEntryActivity"
+    android:theme="@android:style/Theme.Translucent.NoTitleBar"
+    >
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <!--这里填写自己的appid,貌似不写也可以-->
+        <data android:scheme="wx957fd60b70d04b60"/>
+    </intent-filter>
+</activity>
+```
+```
+/*判断是否安装微信*/
+MyWXShare.newInstance(this).isInstall()
+/*不用支付功能secret可传null,建议放到application初始化*/
+MyWXShare.setAppId(appid,secret);
+MyWXShare.newInstance(this).login(new MyWXLoginCallback() {
+    @Override
+    public void loginSuccess(MyWXUserInfo userInfo) {
+	//登录成功
+    }
+    @Override
+    public void loginFail() {
+	//登录失败
+    }
+    @Override
+    public void loginCancel() {
+	//取消登录
+    }
+});
+```
+| MyWXUserInfo |                  返回用户信息说明                                                                           |
+|------------------|---------------------------------------------------------------------------------------------|
+| access_token     | 接口调用凭证                                                                                |
+| refresh_token    | 用户刷新access_token                                                                        |
+| expires_in       | access_token接口调用凭证超时时间，单位（秒）                                                |
+| openid           | 授权用户唯一标识(同一账户,ios和android登录会返回不同openid,不唯一)                          |
+| unionid          | 用户统一标识,针对一个微信开放平台帐号下的应用,同一用户(ios和android登录)的unionid是唯一的。 |
+| nickname         | 普通用户昵称                                                                                |
+| headimgurl       | 用户头像,用户没有头像时该项为空                                                             |
+| sex              | 普通用户性别,0未设置性别,1为男性,2为女性                                                    |
+| country          | 国家,如中国为CN                                                                             |
+| province         | 普通用户个人资料填写的省份                                                                  |
+| city             | 普通用户个人资料填写的城市                                                                  |
+| scope            | 用户授权的作用域,使用逗号（,）分隔                                                          |
+| language         | 国家地区语言版本,zh_CN 简体,zh_TW 繁体,en 英语,默认为zh-CN                                  |
+| privilege        | 用户特权信息，json数组，如微信沃卡用户为（chinaunicom）                                     |
+  
+  ### 微信官方混淆规则
+```
+-keep class com.tencent.mm.opensdk.** {
+*;
+}
+-keep class com.tencent.wxop.** {
+*;
+}
+-keep class com.tencent.mm.sdk.** {
+*;
+}
+-keep class com.tencent.mm.opensdk.** {
+*;
+}
+-keep class com.tencent.wxop.** {
+*;
+}
+-keep class com.tencent.mm.sdk.** {
+*;
+}
+```  
+  
+  # QQ分享
+```
+<!--QQ权限配置-->
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+<activity
+    android:name="com.tencent.tauth.AuthActivity"
+    android:noHistory="true"
+    android:launchMode="singleTask">
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="tencent[你的appid]" />
+        <!--例如-->
+        <!--<data android:scheme="tencent88888888" />-->
+    </intent-filter>
+</activity>
+<activity
+    android:name="com.tencent.connect.common.AssistActivity"
+    android:screenOrientation="behind"
+    android:theme="@android:style/Theme.Translucent.NoTitleBar"
+    android:configChanges="orientation|keyboardHidden">
+</activity>
+
+```
+```
+//返回Tencent类的实例:MyQQShare.newInstance(this).getTencent();
+//检查是否有安装QQ
+MyQQShare.newInstance(this).isInstall()
+//在分享或者登录的Activity中配置,建议在父类统一配置,不配置会导致回调函数不执行
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    MyQQActivityResult.onActivityResult(requestCode,resultCode,data);
+}
+
+MyQQWebHelper helper=new MyQQWebHelper(scene);
+//scene参数说明
+//QQ好友：ShareParam.QQ
+//空间：ShareParam.QZONE
+MyQQShare.newInstance(this).shareWeb(helper, new MyQQShareListener() {
+    @Override
+    public void doComplete(Object o) {
+        //分享成功
+    }
+    @Override
+    public void doError(UiError uiError) {
+        //分享失败
+    }
+    @Override
+    public void doCancel() {
+        //取消分享
+    }
+});
+```
+| MyQQWebHelper(图文分享)   | 说明                                  |
+|---------------------------|---------------------------------------|
+| setTitle                  | 标题                                  |
+| setDescription            | 摘要                                  |
+| setUrl                    | 页面链接                              |
+| setImagePath或setImageUrl | 图片(手机本地图片路径或者网络图片url) |
+|                           |                                       |
+  
+  | MyQQImageHelper(图片分享) | 说明                                  |
+|---------------------------|---------------------------------------|
+| setImagePath              | 需要分享的本地图片路径(不能是网络图片url)                | 
+  
+  | MyQQAudioHelper(音乐分享) | 说明                                                | 是否必填 |
+|---------------------------|-----------------------------------------------------|:--------:|
+| setTitle                  | 标题                                                |     √    |
+| setDescription            | 摘要                                                |     ×    |
+| setUrl                    | 页面跳转链接                                        |     √    |
+| setAudioUrl               | 音乐文件的远程链接, 以URL的形式传入, 不支持本地音乐 |     √    |
+| setImagePath               | 分享图片的URL或者本地路径                           |     ×    |
+| setAppName                | 应用名称                                            |     ×    |
+  
+    
+    
+# QQ登录
+```
+//在分享或者登录的Activity中配置,建议在父类统一配置,不配置会导致回调函数不执行
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    MyQQActivityResult.onActivityResult(requestCode,resultCode,data);
+}
+
+
+/*建议放到application初始化*/
+MyQQShare.setAppId(appid);
+MyQQShare.newInstance(this).login(new MyQQLoginCallback() {
+    @Override
+    public void loginSuccess(MyQQUserInfo userInfo) {
+        //登录成功
+    }
+    @Override
+    public void loginFail() {
+        //登录失败
+    }
+    @Override
+    public void loginCancel() {
+        //取消登录
     }
 });
 ```
