@@ -5,16 +5,9 @@ package com.sdklibrary.base.share.qq.bean;
  */
 
 public class MyQQAppHelper extends MyQQBaseShareHelper {
-    private String imageUrl;
     private String imagePath;
     private String arkJson;
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
     public String getArkJson() {
         return arkJson;
     }

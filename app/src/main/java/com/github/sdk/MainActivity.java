@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 qqHelper.setTitle("QQ分享标题");
                 qqHelper.setDescription("QQ分享内容");
                 qqHelper.setUrl("http://47.92.28.70:1800/index.html");
-                qqHelper.setImageUrl("https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=4b0d814ddf3f8794c7f2407cb3726591/6c224f4a20a44623d0bfc7979322720e0df3d7ca.jpg");
+                qqHelper.setImagePath("https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=4b0d814ddf3f8794c7f2407cb3726591/6c224f4a20a44623d0bfc7979322720e0df3d7ca.jpg");
 
                 MyQQShare.newInstance(this).shareWeb(qqHelper, new MyQQShareListener() {
                     @Override
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 qqHelper.setTitle("QQ分享标题");
                 qqHelper.setDescription("QQ分享内容");
                 qqHelper.setUrl("http://47.92.28.70:1800/index.html");
-                qqHelper.setImageUrl("https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=4b0d814ddf3f8794c7f2407cb3726591/6c224f4a20a44623d0bfc7979322720e0df3d7ca.jpg");
+                qqHelper.setImagePath("https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=4b0d814ddf3f8794c7f2407cb3726591/6c224f4a20a44623d0bfc7979322720e0df3d7ca.jpg");
 
                 MyQQShare.newInstance(this).shareWeb(qqHelper, new MyQQShareListener() {
                     @Override
@@ -325,7 +325,7 @@ timeStamp*//*
         MyQQAppHelper helper=new MyQQAppHelper();
         helper.setTitle("");
         helper.setDescription("");
-        helper.setImageUrl("");
+        helper.setImagePath("");
         helper.setAppName("");
         helper.setArkJson("");
         MyQQShare.newInstance(this).shareApp(helper, new MyQQShareListener() {
@@ -389,7 +389,7 @@ timeStamp*//*
         MyQQWebHelper helper=new MyQQWebHelper(ShareParam.QZONE);
         helper.setTitle("");
         helper.setDescription("");
-        helper.setImageUrl("");
+        helper.setImagePath("");
         helper.setUrl("");
         MyQQShare.newInstance(this).shareWeb(helper, new MyQQShareListener() {
             @Override
