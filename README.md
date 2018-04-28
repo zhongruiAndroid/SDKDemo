@@ -1,23 +1,6 @@
 # SDK集成
 # 支付宝支付  
 
-| √:必传参数<br/>×:非必传参数<br/>o:可在application初始化 | 说明                                                                       | 本地生成支付订单 | 服务器生成支付订单 |
-|-----------------------|----------------------------------------------------------------------------|:----------------:|:------------------:|
-| setAppId              | 开发者应用id|         √-o        |          ×         |
-| setNotifyUrl          | 支付宝通知商户服务器的地址                                                 |         √        |          ×         |
-| setPid                | 商户号                                                                     |         √-o        |          ×         |
-| setSiYao              | 私钥                                                                       |         √-o        |          ×         |
-| setOut_trade_no       | 自己服务器生成的订单号                                                     |         √        |          ×         |
-| setTotal_amount       | 订单金额(单位:元)精确到小数点后两位<br/>取值范围[0.01,100000000]               |         √        |          ×         |
-| setSubject            | 商品的标题/交易标题/订单标题/订单关键字等                                  |         √        |          ×         |
-| setBody               | 订单具体描述信息                                                           |         √        |          ×         |
-| setOrderInfo          | 请求支付的订单信息                                                         |         ×        |          √         |
-
-
-
-
-**上述参数中的appid,pid,siyao可在application中调用MyAliPay.setConfig(APPID,PID,SIYAO)设置**
-### 支付宝支付示例
 ```xml
 <!--支付宝权限-->
 <uses-permission android:name="android.permission.INTERNET"/>
@@ -77,7 +60,22 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
         //支付取消
     }
 });
-```
+```  
+
+| √:必传参数<br/>×:非必传参数<br/>o:可在application初始化 | 说明                                                                       | 本地生成支付订单 | 服务器生成支付订单 |
+|-----------------------|----------------------------------------------------------------------------|:----------------:|:------------------:|
+| setAppId              | 开发者应用id|         √-o        |          ×         |
+| setNotifyUrl          | 支付宝通知商户服务器的地址                                                 |         √        |          ×         |
+| setPid                | 商户号                                                                     |         √-o        |          ×         |
+| setSiYao              | 私钥                                                                       |         √-o        |          ×         |
+| setOut_trade_no       | 自己服务器生成的订单号                                                     |         √        |          ×         |
+| setTotal_amount       | 订单金额(单位:元)精确到小数点后两位<br/>取值范围[0.01,100000000]               |         √        |          ×         |
+| setSubject            | 商品的标题/交易标题/订单标题/订单关键字等                                  |         √        |          ×         |
+| setBody               | 订单具体描述信息                                                           |         √        |          ×         |
+| setOrderInfo          | 请求支付的订单信息                                                         |         ×        |          √         |
+
+
+**上述参数中的appid,pid,siyao可在application中调用MyAliPay.setConfig(APPID,PID,SIYAO)设置**
 ### 支付宝官方混淆规则
 ```java
 -keep class com.alipay.android.app.IAlixPay{*;}
@@ -179,27 +177,7 @@ public class WXPayEntryActivity extends MyWXPayEntryActivity {
 }
 ```  
 #### 1微信支付  
-| √:必传参数<br/>×:非必传参数<br/>o:可在application初始化 | 说明                                                                         | 本地生成支付订单 | 服务器生成支付订单 |
-|-------------------------|------------------------------------------------------------------------------|:----------------:|:------------------:|
-| setAppId                | 开发者应用id |         √-o        |          √-o         |
-| setMch_id               | 商户号                                                                       |         √-o        |          √-o         |
-| setMiyao                | 密钥                                                                         |         √-o        |          √-o         |
-| setNotifyUrl            | 微信通知商户服务器的地址                                                     |         √        |          ×         |
-| setOut_trade_no         | 自己服务器生成的订单号                                                       |         √        |          ×         |
-| setTotalFee             | 订单金额(单位:分)                                                            |         √        |          ×         |
-| setBody                 | 订单具体描述信息                                                             |         √        |          ×         |
-| ip                      | 设备ip                                                                       |         √        |          ×         |
-| nonceStr                | 随机数                                                                       |         √        |          ×         |
-| setPrepayId             | 微信支付订单号                                                               |         ×        |          √         |
-| setSign                 | 请求微信支付所需要的签名(不是app签名)                                        |         ×        |          √         |
-| setPackageValue         | 默认值:Sign=WXPay                                                            |         ×        |          √         |
-| setTimeStamp            | 时间戳                                                                       |         ×        |          √         |
   
-**上述参数中的APPID,MCH_ID,MIYAO可在application中调用MyWXPay.setConfig(APPID,MCH_ID,MIYAO)设置**  
-
-#### 微信支付示例
-
-
 ```java
 /********************************app本地生成支付订单信息传参******************************************/
 MyWXOrderBean wxOrderBean=new MyWXOrderBean();
@@ -247,6 +225,24 @@ MyWXPay.newInstance(this).startPay(wxOrderBean, new MyWXPayCallback() {
 MyWXPay.newInstance(this).startPay(wxOrderBean);
 ```
 **如果微信分享、支付、登录不成功，请仔细检查相关配置(微信开放平台是否配置相关信息，应用包名、应用签名是否配置正确)和app是否进行签名**
+
+| √:必传参数<br/>×:非必传参数<br/>o:可在application初始化 | 说明                                                                         | 本地生成支付订单 | 服务器生成支付订单 |
+|-------------------------|------------------------------------------------------------------------------|:----------------:|:------------------:|
+| setAppId                | 开发者应用id |         √-o        |          √-o         |
+| setMch_id               | 商户号                                                                       |         √-o        |          √-o         |
+| setMiyao                | 密钥                                                                         |         √-o        |          √-o         |
+| setNotifyUrl            | 微信通知商户服务器的地址                                                     |         √        |          ×         |
+| setOut_trade_no         | 自己服务器生成的订单号                                                       |         √        |          ×         |
+| setTotalFee             | 订单金额(单位:分)                                                            |         √        |          ×         |
+| setBody                 | 订单具体描述信息                                                             |         √        |          ×         |
+| ip                      | 设备ip                                                                       |         √        |          ×         |
+| nonceStr                | 随机数                                                                       |         √        |          ×         |
+| setPrepayId             | 微信支付订单号                                                               |         ×        |          √         |
+| setSign                 | 请求微信支付所需要的签名(不是app签名)                                        |         ×        |          √         |
+| setPackageValue         | 默认值:Sign=WXPay                                                            |         ×        |          √         |
+| setTimeStamp            | 时间戳                                                                       |         ×        |          √         |
+  
+**上述参数中的APPID,MCH_ID,MIYAO可在application中调用MyWXPay.setConfig(APPID,MCH_ID,MIYAO)设置**  
 
 #### 2微信分享
 ```java
@@ -421,17 +417,16 @@ MyQQShare.newInstance(this).shareWeb(helper, new MyQQShareListener() {
     }
 });
 ```
-| MyQQWebHelper(图文分享)   | 说明                                  |
-|---------------------------|---------------------------------------|
-| setTitle                  | 标题                                  |
-| setDescription            | 摘要                                  |
-| setUrl                    | 页面链接                              |
-| setImagePath              | 图片(手机本地图片路径或者网络图片url) |
-|                           |                                       |
+| MyQQWebHelper--(图文分享) | 说明                                  | 是否必填 |
+|-------------------------|---------------------------------------|:--------:|
+| setTitle                | 标题                                  |     √    |
+| setDescription          | 摘要                                  |     ×    |
+| setUrl                  | 页面链接                              |     √    |
+| setImagePath            | 图片(手机本地图片路径或者网络图片url) |     ×    |
   
-  | MyQQImageHelper(图片分享) | 说明                                  |
-|---------------------------|---------------------------------------|
-| setImagePath              | 需要分享的本地图片路径(不能是网络图片url)                | 
+  | MyQQImageHelper(图片分享) | 说明                                  |是否必填 |
+|---------------------------|---------------------------------------|:--------:|
+| setImagePath              | 需要分享的本地图片路径(不能是网络图片url)                |     √    |
   
   | MyQQAudioHelper(音乐分享) | 说明                                                | 是否必填 |
 |---------------------------|-----------------------------------------------------|:--------:|
