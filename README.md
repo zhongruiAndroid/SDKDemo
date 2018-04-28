@@ -368,8 +368,8 @@ MyWXShare.newInstance(this).login(new MyWXLoginCallback() {
 | access_token     | 接口调用凭证                                                                                |
 | refresh_token    | 用户刷新access_token                                                                        |
 | expires_in       | access_token接口调用凭证超时时间，单位（秒）                                                |
-| openid           | 授权用户唯一标识(同一账户,ios和android登录会返回不同openid,不唯一)                          |
-| unionid          | 用户统一标识,针对一个微信开放平台帐号下的应用,同一用户(ios和android登录)的unionid是唯一的。 |
+| openid           | 授权用户唯一标识(同一账户,ios和android登录会返回不同openid)                          |
+| unionid          | 用户统一标识,针对一个微信开放平台帐号下的应用,同一用户(ios和android登录)返回的unionid是唯一的 |
 | nickname         | 普通用户昵称                                                                                |
 | headimgurl       | 用户头像,用户没有头像时该项为空                                                             |
 | sex              | 普通用户性别,0未设置性别,1为男性,2为女性                                                    |
@@ -509,3 +509,14 @@ MyQQShare.newInstance(this).login(new MyQQLoginCallback() {
     }
 });
 ```
+
+| MyQQUserInfo | 返回用户信息说明                                                                                             |
+|--------------|--------------------------------------------------------------------------------------------------------------|
+| access_token | 接口调用凭证                                                                                                 |
+| pay_token    |                                                                                                              |
+| expires_in   | access_token接口调用凭证超时时间，单位（秒）                                                                 |
+| openid       | 授权用户唯一标识(同一账户,ios和android登录会返回不同openid)                                                  |
+| unionid      | 用户统一标识,ios和android数据未申请打通时为空,打通之后不为空,且同一用户(ios和android登录)返回的unionid是唯一的 |
+| nickname     | 用户昵称                                                                                                     |
+| userImageUrl | 用户头像                                                                                                     |
+| sex          | 性别"男"或"女"                                                                                               |
