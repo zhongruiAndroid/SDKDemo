@@ -464,7 +464,7 @@ MyQQShare.newInstance(this).shareWeb(helper, new MyQQShareListener() {
 | setTitle                  | 标题                                  |
 | setDescription            | 摘要                                  |
 | setUrl                    | 页面链接                              |
-| setImagePath或setImageUrl | 图片(手机本地图片路径或者网络图片url) |
+| setImagePath              | 图片(手机本地图片路径或者网络图片url) |
 |                           |                                       |
   
   | MyQQImageHelper(图片分享) | 说明                                  |
