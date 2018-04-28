@@ -161,7 +161,11 @@ public class MyQQShare extends BaseShare{
         params.putString(QQShare.SHARE_TO_QQ_TITLE, helper.getTitle());
         params.putString(QQShare.SHARE_TO_QQ_SUMMARY,  helper.getDescription());
         params.putString(QQShare.SHARE_TO_QQ_TARGET_URL, helper.getUrl());
-        params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, helper.getImagePath());
+        if(TextUtils.isEmpty(helper.getImagePath())){
+            params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, helper.getImageUrl());
+        }else{
+            params.putString(QQShare.SHARE_TO_QQ_IMAGE_LOCAL_URL, helper.getImagePath());
+        }
         params.putString(QQShare.SHARE_TO_QQ_AUDIO_URL, helper.getAudioUrl());
         params.putString(QQShare.SHARE_TO_QQ_APP_NAME, helper.getAppName());
 //        params.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO_QQ_FLAG_QZONE_AUTO_OPEN);
@@ -178,7 +182,11 @@ public class MyQQShare extends BaseShare{
         params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_APP);
         params.putString(QQShare.SHARE_TO_QQ_TITLE, helper.getTitle());
         params.putString(QQShare.SHARE_TO_QQ_SUMMARY, helper.getDescription());
-        params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL,helper.getImageUrl());
+        if(TextUtils.isEmpty(helper.getImagePath())){
+            params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, helper.getImageUrl());
+        }else{
+            params.putString(QQShare.SHARE_TO_QQ_IMAGE_LOCAL_URL, helper.getImagePath());
+        }
         params.putString(QQShare.SHARE_TO_QQ_APP_NAME, helper.getAppName());
 //        params.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO_QQ_FLAG_QZONE_AUTO_OPEN);
         params.putString(QQShare.SHARE_TO_QQ_ARK_INFO, helper.getArkJson());

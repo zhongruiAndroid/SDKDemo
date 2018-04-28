@@ -7,6 +7,7 @@ package com.sdklibrary.base.share.qq.bean;
 public class MyQQAudioHelper extends MyQQBaseShareHelper {
     private String audioUrl;
     private String imagePath;
+    private String imageUrl;
 
     public String getAudioUrl() {
         return audioUrl;
@@ -21,5 +22,13 @@ public class MyQQAudioHelper extends MyQQBaseShareHelper {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
