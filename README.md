@@ -1,7 +1,7 @@
-# SDKDemo
+# SDK集成
 # 支付宝支付  
 
-| √:必传参数<br/>×:非必传参数<br/>o:可在application初始化 | 说明                                                                       | 本地生成支付订单 | 服务器生成支付订单 |
+| √:必传参数<br/>×:非必传参数<br/>o:可在application初始化 | 说明                                                                       | 本地生成支付订单 | 服务器生成支付订单 |
 |-----------------------|----------------------------------------------------------------------------|:----------------:|:------------------:|
 | setAppId              | 开发者应用id|         √-o        |          ×         |
 | setNotifyUrl          | 支付宝通知商户服务器的地址                                                 |         √        |          ×         |
@@ -102,8 +102,83 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
 ```
 <br/>  
 
-# 微信支付  
+# 微信SDK
+```
+<!--微信所需权限-->
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<!--微信登录和分享Activity配置-->
+<activity
+    android:name="包名.wxapi.WXEntryActivity"
+    android:configChanges="keyboardHidden|orientation|screenSize"
+    android:exported="true"
+    android:screenOrientation="portrait"
+    android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+<!--微信支付Activity配置-->
+<activity 
+    android:name="包名.wxapi.WXPayEntryActivity"
+    android:theme="@android:style/Theme.Translucent.NoTitleBar"
+    >
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <!--这里填写自己的appid,貌似不写也可以-->
+        <data android:scheme="wx957fd60b70d04b60"/>
+    </intent-filter>
+</activity>
+```
+<br/>  
 
+```
+//在项目包名下新建一个wxapi文件夹，里面新建WXEntryActivity(用于登录和分享)，WXPayEntryActivity(用于支付)
+//分别继承MyWXEntryActivity和MyWXPayEntryActivity
+
+//登录分享
+public class WXEntryActivity extends MyWXEntryActivity{
+    @Override
+    protected int getContentView() {
+        return 0;
+    }
+    @Override
+    protected void initView() {
+        
+    }
+}
+//支付
+public class WXPayEntryActivity extends MyWXPayEntryActivity {
+    @Override
+    protected int getContentView() {
+        return 0;
+    }
+    @Override
+    protected void initView() {
+        
+    }   
+}
+```
+微信官方混淆规则
+```
+-keep class com.tencent.mm.opensdk.** {
+*;
+}
+-keep class com.tencent.wxop.** {
+*;
+}
+-keep class com.tencent.mm.sdk.** {
+*;
+}
+-keep class com.tencent.mm.opensdk.** {
+*;
+}
+-keep class com.tencent.wxop.** {
+*;
+}
+-keep class com.tencent.mm.sdk.** {
+*;
+}
+```  
+#### 1微信支付  
 | √:必传参数<br/>×:非必传参数<br/>o:可在application初始化 | 说明                                                                         | 本地生成支付订单 | 服务器生成支付订单 |
 |-------------------------|------------------------------------------------------------------------------|:----------------:|:------------------:|
 | setAppId                | 开发者应用id |         √-o        |          √-o         |
@@ -122,60 +197,7 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
   
 **上述参数中的APPID,MCH_ID,MIYAO可在application中调用MyWXPay.setConfig(APPID,MCH_ID,MIYAO)设置**  
 
-### 微信支付示例
-```
-<!--微信所需权限-->
-<uses-permission android:name="android.permission.INTERNET"/>
-<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-<!--微信登录和分享Activity配置-->
-<activity
-    android:name="包名.wxapi.WXEntryActivity"
-    android:configChanges="keyboardHidden|orientation|screenSize"
-    android:exported="true"
-    android:screenOrientation="portrait"
-    android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-<!--微信支付Activity配置-->
-<activity 
-    android:name="包名.wxapi.WXPayEntryActivity"
-    android:theme="@android:style/Theme.Translucent.NoTitleBar"
-    >
-    <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <!--这里填写自己的appid,貌似不写也可以-->
-        <data android:scheme="wx957fd60b70d04b60"/>
-    </intent-filter>
-</activity>
-```
-<br/>  
-
-```
-//在包名下新建一个wxapi文件夹，里面新建WXEntryActivity(用于登录和分享)，WXPayEntryActivity(用于支付)
-//分别继承MyWXEntryActivity和MyWXPayEntryActivity
-
-public class WXEntryActivity extends MyWXEntryActivity{
-    @Override
-    protected int getContentView() {
-        return 0;
-    }
-    @Override
-    protected void initView() {
-        
-    }
-}
-
-public class WXPayEntryActivity extends MyWXPayEntryActivity {
-    @Override
-    protected int getContentView() {
-        return 0;
-    }
-    @Override
-    protected void initView() {
-        
-    }   
-}
-```
+#### 微信支付示例
 
 
 ```
@@ -225,28 +247,8 @@ MyWXPay.newInstance(this).startPay(wxOrderBean, new MyWXPayCallback() {
 MyWXPay.newInstance(this).startPay(wxOrderBean);
 ```
 **如果微信分享、支付、登录不成功，请仔细检查相关配置(微信开放平台是否配置相关信息，应用包名、应用签名是否配置正确)和app是否进行签名**
-### 微信官方混淆规则
-```
--keep class com.tencent.mm.opensdk.** {
-*;
-}
--keep class com.tencent.wxop.** {
-*;
-}
--keep class com.tencent.mm.sdk.** {
-*;
-}
--keep class com.tencent.mm.opensdk.** {
-*;
-}
--keep class com.tencent.wxop.** {
-*;
-}
--keep class com.tencent.mm.sdk.** {
-*;
-}
-```  
-# 微信分享
+
+#### 2微信分享
 ```
 //分享网页
 MyWXWebHelper helper=new MyWXWebHelper(scene);
@@ -316,33 +318,9 @@ MyWXShare.newInstance(this).shareWeb(helper, new MyWXShareCallback() {
 | MyWXVideoHelper           |            |          |
 | setDstWidth(默认150)      | 缩略图宽度 |     √    |
 | setDstHeight(默认150)     | 缩略图高度 |     √    |
-  
-  # 微信登录
-  ```
-<!--微信所需权限-->
-<uses-permission android:name="android.permission.INTERNET"/>
-<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-<!--微信登录和分享Activity配置-->
-<activity
-    android:name="包名.wxapi.WXEntryActivity"
-    android:configChanges="keyboardHidden|orientation|screenSize"
-    android:exported="true"
-    android:screenOrientation="portrait"
-    android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-<!--微信支付Activity配置-->
-<activity 
-    android:name="包名.wxapi.WXPayEntryActivity"
-    android:theme="@android:style/Theme.Translucent.NoTitleBar"
-    >
-    <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <!--这里填写自己的appid,貌似不写也可以-->
-        <data android:scheme="wx957fd60b70d04b60"/>
-    </intent-filter>
-</activity>
-```
+    
+    
+#### 3微信登录
 ```
 /*判断是否安装微信*/
 MyWXShare.newInstance(this).isInstall()
@@ -380,29 +358,17 @@ MyWXShare.newInstance(this).login(new MyWXLoginCallback() {
 | language         | 国家地区语言版本,zh_CN 简体,zh_TW 繁体,en 英语,默认为zh-CN                                  |
 | privilege        | 用户特权信息，json数组，如微信沃卡用户为（chinaunicom）                                     |
   
-  ### 微信官方混淆规则
-```
--keep class com.tencent.mm.opensdk.** {
-*;
-}
--keep class com.tencent.wxop.** {
-*;
-}
--keep class com.tencent.mm.sdk.** {
-*;
-}
--keep class com.tencent.mm.opensdk.** {
-*;
-}
--keep class com.tencent.wxop.** {
-*;
-}
--keep class com.tencent.mm.sdk.** {
-*;
-}
-```  
+ 
   
-  # QQ分享
+# QQSDK
+```
+//在分享或者登录的Activity中配置,建议在父类统一配置,不配置会导致回调函数不执行
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    MyQQActivityResult.onActivityResult(requestCode,resultCode,data);
+}
+```
 ```
 <!--QQ权限配置-->
 <uses-permission android:name="android.permission.INTERNET" />
@@ -429,16 +395,12 @@ MyWXShare.newInstance(this).login(new MyWXLoginCallback() {
 </activity>
 
 ```
+#### 1QQ分享
+
 ```
 //返回Tencent类的实例:MyQQShare.newInstance(this).getTencent();
 //检查是否有安装QQ
 MyQQShare.newInstance(this).isInstall()
-//在分享或者登录的Activity中配置,建议在父类统一配置,不配置会导致回调函数不执行
-@Override
-public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    MyQQActivityResult.onActivityResult(requestCode,resultCode,data);
-}
 
 MyQQWebHelper helper=new MyQQWebHelper(scene);
 //scene参数说明
@@ -482,16 +444,8 @@ MyQQShare.newInstance(this).shareWeb(helper, new MyQQShareListener() {
   
     
     
-# QQ登录
+#### 2QQ登录
 ```
-//在分享或者登录的Activity中配置,建议在父类统一配置,不配置会导致回调函数不执行
-@Override
-public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    MyQQActivityResult.onActivityResult(requestCode,resultCode,data);
-}
-
-
 /*建议放到application初始化*/
 MyQQShare.setAppId(appid);
 MyQQShare.newInstance(this).login(new MyQQLoginCallback() {
@@ -516,7 +470,7 @@ MyQQShare.newInstance(this).login(new MyQQLoginCallback() {
 | pay_token    |                                                                                                              |
 | expires_in   | access_token接口调用凭证超时时间，单位（秒）                                                                 |
 | openid       | 授权用户唯一标识(同一账户,ios和android登录会返回不同openid)                                                  |
-| unionid      | 用户统一标识,ios和android数据未申请打通时为空,打通之后不为空,且同一用户(ios和android登录)返回的unionid是唯一的 |
+| unionid      | 用户统一标识,ios和android数据未申请打通时为空,打通之后不为空,且同一用户(ios和android登录)返回的unionid是唯一的 |
 | nickname     | 用户昵称                                                                                                     |
 | userImageUrl | 用户头像                                                                                                     |
 | sex          | 性别"男"或"女"                                                                                               |
