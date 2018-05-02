@@ -11,8 +11,11 @@
 	* [相关配置](#qq)
 	* [1.分享](#qq1)
 	* [2.登录](#qq2)
-
-
+	  
+[ ![Download](https://api.bintray.com/packages/zhongrui/mylibrary/sdklibrary/images/download.svg) ](https://bintray.com/zhongrui/mylibrary/sdklibrary/_latestVersion)<--版本号
+```
+compile 'com.github:sdklibrary:版本号看上面'
+```
 # <h2 id="zfb">支付宝支付</h2>
 
 ```xml
