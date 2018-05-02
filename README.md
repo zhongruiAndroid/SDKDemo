@@ -1,6 +1,19 @@
-# SDK集成
-**基于Rxjava2.X实现部分功能,如果项目中使用了Rxjava1.X请勿使用以下功能**
-# 支付宝支付  
+# <h2 id="top">SDK集成</h2>
+**基于Rxjava2.X实现部分功能,如果项目中使用了Rxjava1.X请勿使用以下功能**  
+
+* [支付宝](#zfb)
+* [微信](#wx)
+	* [相关配置](#wx)
+	* [1.支付](#wx1)
+	* [2.分享](#wx2)
+	* [2.登录](#wx3)
+* [QQ](#qq)
+	* [相关配置](#qq)
+	* [1.分享](#qq1)
+	* [2.登录](#qq2)
+
+
+# <h2 id="zfb">支付宝支付</h2>
 
 ```xml
 <!--支付宝权限-->
@@ -77,7 +90,7 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
 
 
 **上述参数中的appid,pid,siyao可在application中调用MyAliPay.setConfig(APPID,PID,SIYAO)设置**
-### 支付宝官方混淆规则
+#### 支付宝官方混淆规则
 ```java
 -keep class com.alipay.android.app.IAlixPay{*;}
 -keep class com.alipay.android.app.IAlixPay$Stub{*;}
@@ -101,7 +114,8 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
 ```
 <br/>  
 
-# 微信SDK
+# <h2 id="wx">微信SDK</h2>  
+**[返回目录](#top)** 
 ```xml
 <!--微信所需权限-->
 <uses-permission android:name="android.permission.INTERNET"/>
@@ -156,7 +170,7 @@ public class WXPayEntryActivity extends MyWXPayEntryActivity {
     }   
 }
 ```
-微信官方混淆规则
+#### 微信官方混淆规则
 ```java
 -keep class com.tencent.mm.opensdk.** {
 *;
@@ -177,8 +191,9 @@ public class WXPayEntryActivity extends MyWXPayEntryActivity {
 *;
 }
 ```  
-#### 1微信支付  
-  
+#### <h2 id="wx1">微信支付</h2>
+    
+**[返回目录](#top)** 
 ```java
 /********************************app本地生成支付订单信息传参******************************************/
 MyWXOrderBean wxOrderBean=new MyWXOrderBean();
@@ -245,7 +260,8 @@ MyWXPay.newInstance(this).startPay(wxOrderBean);
   
 **上述参数中的APPID,MCH_ID,MIYAO可在application中调用MyWXPay.setConfig(APPID,MCH_ID,MIYAO)设置**  
 
-#### 2微信分享
+#### <h2 id="wx2">微信分享</h2>  
+**[返回目录](#top)** 
 ```java
 //分享网页
 MyWXWebHelper helper=new MyWXWebHelper(scene);
@@ -317,7 +333,8 @@ MyWXShare.newInstance(this).shareWeb(helper, new MyWXShareCallback() {
 | setDstHeight(默认150)     | 缩略图高度 |     √    |
     
     
-#### 3微信登录
+#### <h2 id="wx3">微信登录</h2>  
+**[返回目录](#top)** 
 ```java
 /*判断是否安装微信*/
 MyWXShare.newInstance(this).isInstall()
@@ -357,7 +374,8 @@ MyWXShare.newInstance(this).login(new MyWXLoginCallback() {
   
  
   
-# QQSDK
+# <h2 id="qq">QQSDK</h2>  
+**[返回目录](#top)** 
 ```java
 //在分享或者登录的Activity中配置,建议在父类统一配置,不配置会导致回调函数不执行
 @Override
@@ -392,7 +410,8 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
 </activity>
 
 ```
-#### 1QQ分享
+#### <h2 id="qq1">QQ分享</h2>  
+**[返回目录](#top)** 
 
 ```java
 //返回Tencent类的实例:MyQQShare.newInstance(this).getTencent();
@@ -440,7 +459,8 @@ MyQQShare.newInstance(this).shareWeb(helper, new MyQQShareListener() {
   
     
     
-#### 2QQ登录
+#### <h2 id="qq2">QQ登录</h2>  
+**[返回目录](#top)** 
 ```java
 /*建议放到application初始化*/
 MyQQShare.setAppId(appid);
