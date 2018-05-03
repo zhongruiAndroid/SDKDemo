@@ -206,17 +206,17 @@ wxOrderBean.setSign(sign);
 wxOrderBean.setPackageValue(packageValue);
 wxOrderBean.setTimeStamp(timeStamp);
 
-MyWXPay.newInstance(this).startPay(wxOrderBean, new MyWXPayCallback() {
+MyWXPay.newInstance(this).startPay(wxOrderBean, new MyWXCallback() {
     @Override
-    public void paySuccess() {
+    public void onSuccess() {
         //支付成功
     }
     @Override
-    public void payFail() {
+    public void onFail() {
         //支付失败
     }
     @Override
-    public void payCancel() {
+    public void onCancel() {
         //支付取消
     }
 });
@@ -260,17 +260,17 @@ helper.setBitmap(bitmap);
 helper.setUrl("目标网址");
 helper.setTitle("分享的标题");
 helper.setDescription("分享的内容");
-MyWXShare.newInstance(this).shareWeb(helper, new MyWXShareCallback() {
+MyWXShare.newInstance(this).shareWeb(helper, new MyWXCallback() {
     @Override
-    public void shareSuccess() {
+    public void onSuccess() {
 	//分享成功
     }
     @Override
-    public void shareFail() {
+    public void onFail() {
 	//分享失败
     }
     @Override
-    public void shareCancel() {
+    public void onCancel() {
 	//分享取消
     }
 });
