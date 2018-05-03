@@ -1,24 +1,23 @@
-# SDKDemo
-# 支付宝支付  
+# <h2 id="top">SDK集成</h2>
 
-| √:必传参数<br/>×:非必传参数<br/>o:可在application初始化 | 说明                                                                       | 本地生成支付订单 | 服务器生成支付订单 |
-|-----------------------|----------------------------------------------------------------------------|:----------------:|:------------------:|
-| setAppId              | 开发者应用id|         √-o        |          ×         |
-| setNotifyUrl          | 支付宝通知商户服务器的地址                                                 |         √        |          ×         |
-| setPid                | 商户号                                                                     |         √-o        |          ×         |
-| setSiYao              | 私钥                                                                       |         √-o        |          ×         |
-| setOut_trade_no       | 自己服务器生成的订单号                                                     |         √        |          ×         |
-| setTotal_amount       | 订单金额(单位:元)精确到小数点后两位<br/>取值范围[0.01,100000000]               |         √        |          ×         |
-| setSubject            | 商品的标题/交易标题/订单标题/订单关键字等                                  |         √        |          ×         |
-| setBody               | 订单具体描述信息                                                           |         √        |          ×         |
-| setOrderInfo          | 请求支付的订单信息                                                         |         ×        |          √         |
-
-
-
-
-**上述参数中的appid,pid,siyao可在application中调用MyAliPay.setConfig(APPID,PID,SIYAO)设置**
-### 支付宝支付示例
+* [支付宝](#zfb)
+* [微信](#wx)
+	* [相关配置](#wx)
+	* [1.支付](#wx1)
+	* [2.分享](#wx2)
+	* [2.登录](#wx3)
+* [QQ](#qq)
+	* [相关配置](#qq)
+	* [1.分享](#qq1)
+	* [2.登录](#qq2)
+	  
+[ ![Download](https://api.bintray.com/packages/zhongrui/mylibrary/sdklibrary/images/download.svg) ](https://bintray.com/zhongrui/mylibrary/sdklibrary/_latestVersion)<--版本号
 ```
+compile 'com.github:sdklibrary:版本号看上面'
+```
+# <h2 id="zfb">支付宝支付</h2>
+
+```xml
 <!--支付宝权限-->
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -42,7 +41,7 @@
 </activity>
 ```
 
-```
+```java
 /********************************app本地生成支付订单信息传参******************************************/
 MyAliOrderBean aliBean=new MyAliOrderBean();
 aliBean.setAppId(appid);
@@ -77,9 +76,24 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
         //支付取消
     }
 });
-```
-### 支付宝官方混淆规则
-```
+```  
+
+| √:必传参数<br/>×:非必传参数<br/>o:可在application初始化 | 说明                                                                       | 本地生成支付订单 | 服务器生成支付订单 |
+|-----------------------|----------------------------------------------------------------------------|:----------------:|:------------------:|
+| setAppId              | 开发者应用id|         √-o        |          ×         |
+| setNotifyUrl          | 支付宝通知商户服务器的地址                                                 |         √        |          ×         |
+| setPid                | 商户号                                                                     |         √-o        |          ×         |
+| setSiYao              | 私钥                                                                       |         √-o        |          ×         |
+| setOut_trade_no       | 自己服务器生成的订单号                                                     |         √        |          ×         |
+| setTotal_amount       | 订单金额(单位:元)精确到小数点后两位<br/>取值范围[0.01,100000000]               |         √        |          ×         |
+| setSubject            | 商品的标题/交易标题/订单标题/订单关键字等                                  |         √        |          ×         |
+| setBody               | 订单具体描述信息                                                           |         √        |          ×         |
+| setOrderInfo          | 请求支付的订单信息                                                         |         ×        |          √         |
+
+
+**上述参数中的appid,pid,siyao可在application中调用MyAliPay.setConfig(APPID,PID,SIYAO)设置**
+#### 支付宝官方混淆规则
+```java
 -keep class com.alipay.android.app.IAlixPay{*;}
 -keep class com.alipay.android.app.IAlixPay$Stub{*;}
 -keep class com.alipay.android.app.IRemoteServiceCallback{*;}
@@ -102,28 +116,9 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
 ```
 <br/>  
 
-# 微信支付  
-
-| √:必传参数<br/>×:非必传参数<br/>o:可在application初始化 | 说明                                                                         | 本地生成支付订单 | 服务器生成支付订单 |
-|-------------------------|------------------------------------------------------------------------------|:----------------:|:------------------:|
-| setAppId                | 开发者应用id |         √-o        |          √-o         |
-| setMch_id               | 商户号                                                                       |         √-o        |          √-o         |
-| setMiyao                | 密钥                                                                         |         √-o        |          √-o         |
-| setNotifyUrl            | 微信通知商户服务器的地址                                                     |         √        |          ×         |
-| setOut_trade_no         | 自己服务器生成的订单号                                                       |         √        |          ×         |
-| setTotalFee             | 订单金额(单位:分)                                                            |         √        |          ×         |
-| setBody                 | 订单具体描述信息                                                             |         √        |          ×         |
-| ip                      | 设备ip                                                                       |         √        |          ×         |
-| nonceStr                | 随机数                                                                       |         √        |          ×         |
-| setPrepayId             | 微信支付订单号                                                               |         ×        |          √         |
-| setSign                 | 请求微信支付所需要的签名(不是app签名)                                        |         ×        |          √         |
-| setPackageValue         | 默认值:Sign=WXPay                                                            |         ×        |          √         |
-| setTimeStamp            | 时间戳                                                                       |         ×        |          √         |
-  
-**上述参数中的APPID,MCH_ID,MIYAO可在application中调用MyWXPay.setConfig(APPID,MCH_ID,MIYAO)设置**  
-
-### 微信支付示例
-```
+# <h2 id="wx">微信SDK</h2>  
+**[返回目录](#top)** 
+```xml
 <!--微信所需权限-->
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
@@ -137,23 +132,24 @@ MyAliPay.newInstance(mContext).startPay(aliBean, new MyAliPayCallback() {
     android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 <!--微信支付Activity配置-->
 <activity 
-    android:name="包名.wxapi.WXPayEntryActivity"
+    android:name="包名.wxapi.WXPayEntryActivity"
     android:theme="@android:style/Theme.Translucent.NoTitleBar"
     >
     <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
-        <!--这里填写自己的appid,貌似不写也可以-->
+        <!--这里填写自己的appid,貌似不写也可以-->
         <data android:scheme="wx957fd60b70d04b60"/>
     </intent-filter>
 </activity>
 ```
 <br/>  
 
-```
-//在包名下新建一个wxapi文件夹，里面新建WXEntryActivity(用于登录和分享)，WXPayEntryActivity(用于支付)
+```java
+//在项目包名下新建一个wxapi文件夹，里面新建WXEntryActivity(用于登录和分享)，WXPayEntryActivity(用于支付)
 //分别继承MyWXEntryActivity和MyWXPayEntryActivity
 
+//登录分享
 public class WXEntryActivity extends MyWXEntryActivity{
     @Override
     protected int getContentView() {
@@ -164,7 +160,7 @@ public class WXEntryActivity extends MyWXEntryActivity{
         
     }
 }
-
+//支付
 public class WXPayEntryActivity extends MyWXPayEntryActivity {
     @Override
     protected int getContentView() {
@@ -176,9 +172,31 @@ public class WXPayEntryActivity extends MyWXPayEntryActivity {
     }   
 }
 ```
-
-
-```
+#### 微信官方混淆规则
+```java
+-keep class com.tencent.mm.opensdk.** {
+*;
+}
+-keep class com.tencent.wxop.** {
+*;
+}
+-keep class com.tencent.mm.sdk.** {
+*;
+}
+-keep class com.tencent.mm.opensdk.** {
+*;
+}
+-keep class com.tencent.wxop.** {
+*;
+}
+-keep class com.tencent.mm.sdk.** {
+*;
+}
+```  
+#### <h2 id="wx1">微信支付</h2>
+    
+**[返回目录](#top)** 
+```java
 /********************************app本地生成支付订单信息传参******************************************/
 MyWXOrderBean wxOrderBean=new MyWXOrderBean();
 wxOrderBean.setAppId(appId);
@@ -225,29 +243,28 @@ MyWXPay.newInstance(this).startPay(wxOrderBean, new MyWXCallback() {
 MyWXPay.newInstance(this).startPay(wxOrderBean);
 ```
 **如果微信分享、支付、登录不成功，请仔细检查相关配置(微信开放平台是否配置相关信息，应用包名、应用签名是否配置正确)和app是否进行签名**
-### 微信官方混淆规则
-```
--keep class com.tencent.mm.opensdk.** {
-*;
-}
--keep class com.tencent.wxop.** {
-*;
-}
--keep class com.tencent.mm.sdk.** {
-*;
-}
--keep class com.tencent.mm.opensdk.** {
-*;
-}
--keep class com.tencent.wxop.** {
-*;
-}
--keep class com.tencent.mm.sdk.** {
-*;
-}
-```  
-# 微信分享
-```
+
+| √:必传参数<br/>×:非必传参数<br/>o:可在application初始化 | 说明                                                                         | 本地生成支付订单 | 服务器生成支付订单 |
+|-------------------------|------------------------------------------------------------------------------|:----------------:|:------------------:|
+| setAppId                | 开发者应用id |         √-o        |          √-o         |
+| setMch_id               | 商户号                                                                       |         √-o        |          √-o         |
+| setMiyao                | 密钥                                                                         |         √-o        |          √-o         |
+| setNotifyUrl            | 微信通知商户服务器的地址                                                     |         √        |          ×         |
+| setOut_trade_no         | 自己服务器生成的订单号                                                       |         √        |          ×         |
+| setTotalFee             | 订单金额(单位:分)                                                            |         √        |          ×         |
+| setBody                 | 订单具体描述信息                                                             |         √        |          ×         |
+| ip                      | 设备ip                                                                       |         √        |          ×         |
+| nonceStr                | 随机数                                                                       |         √        |          ×         |
+| setPrepayId             | 微信支付订单号                                                               |         ×        |          √         |
+| setSign                 | 请求微信支付所需要的签名(不是app签名)                                        |         ×        |          √         |
+| setPackageValue         | 默认值:Sign=WXPay                                                            |         ×        |          √         |
+| setTimeStamp            | 时间戳                                                                       |         ×        |          √         |
+  
+**上述参数中的APPID,MCH_ID,MIYAO可在application中调用MyWXPay.setConfig(APPID,MCH_ID,MIYAO)设置**  
+
+#### <h2 id="wx2">微信分享</h2>  
+**[返回目录](#top)** 
+```java
 //分享网页
 MyWXWebHelper helper=new MyWXWebHelper(scene);
 //scene参数说明
@@ -316,34 +333,11 @@ MyWXShare.newInstance(this).shareWeb(helper, new MyWXCallback() {
 | MyWXVideoHelper           |            |          |
 | setDstWidth(默认150)      | 缩略图宽度 |     √    |
 | setDstHeight(默认150)     | 缩略图高度 |     √    |
-  
-  # 微信登录
-  ```
-<!--微信所需权限-->
-<uses-permission android:name="android.permission.INTERNET"/>
-<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-<!--微信登录和分享Activity配置-->
-<activity
-    android:name="包名.wxapi.WXEntryActivity"
-    android:configChanges="keyboardHidden|orientation|screenSize"
-    android:exported="true"
-    android:screenOrientation="portrait"
-    android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-<!--微信支付Activity配置-->
-<activity 
-    android:name="包名.wxapi.WXPayEntryActivity"
-    android:theme="@android:style/Theme.Translucent.NoTitleBar"
-    >
-    <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <!--这里填写自己的appid,貌似不写也可以-->
-        <data android:scheme="wx957fd60b70d04b60"/>
-    </intent-filter>
-</activity>
-```
-```
+    
+    
+#### <h2 id="wx3">微信登录</h2>  
+**[返回目录](#top)** 
+```java
 /*判断是否安装微信*/
 MyWXShare.newInstance(this).isInstall()
 /*不用支付功能secret可传null,建议放到application初始化*/
@@ -368,8 +362,8 @@ MyWXShare.newInstance(this).login(new MyWXLoginCallback() {
 | access_token     | 接口调用凭证                                                                                |
 | refresh_token    | 用户刷新access_token                                                                        |
 | expires_in       | access_token接口调用凭证超时时间，单位（秒）                                                |
-| openid           | 授权用户唯一标识(同一账户,ios和android登录会返回不同openid,不唯一)                          |
-| unionid          | 用户统一标识,针对一个微信开放平台帐号下的应用,同一用户(ios和android登录)的unionid是唯一的。 |
+| openid           | 授权用户唯一标识(同一账户,ios和android登录会返回不同openid)                          |
+| unionid          | 用户统一标识,针对一个微信开放平台帐号下的应用,同一用户(ios和android登录)返回的unionid是唯一的 |
 | nickname         | 普通用户昵称                                                                                |
 | headimgurl       | 用户头像,用户没有头像时该项为空                                                             |
 | sex              | 普通用户性别,0未设置性别,1为男性,2为女性                                                    |
@@ -380,30 +374,19 @@ MyWXShare.newInstance(this).login(new MyWXLoginCallback() {
 | language         | 国家地区语言版本,zh_CN 简体,zh_TW 繁体,en 英语,默认为zh-CN                                  |
 | privilege        | 用户特权信息，json数组，如微信沃卡用户为（chinaunicom）                                     |
   
-  ### 微信官方混淆规则
-```
--keep class com.tencent.mm.opensdk.** {
-*;
-}
--keep class com.tencent.wxop.** {
-*;
-}
--keep class com.tencent.mm.sdk.** {
-*;
-}
--keep class com.tencent.mm.opensdk.** {
-*;
-}
--keep class com.tencent.wxop.** {
-*;
-}
--keep class com.tencent.mm.sdk.** {
-*;
-}
-```  
+ 
   
-  # QQ分享
+# <h2 id="qq">QQSDK</h2>  
+**[返回目录](#top)** 
+```java
+//在分享或者登录的Activity中配置,建议在父类统一配置,不配置会导致回调函数不执行
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    MyQQActivityResult.onActivityResult(requestCode,resultCode,data);
+}
 ```
+```xml
 <!--QQ权限配置-->
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -429,16 +412,13 @@ MyWXShare.newInstance(this).login(new MyWXLoginCallback() {
 </activity>
 
 ```
-```
+#### <h2 id="qq1">QQ分享</h2>  
+**[返回目录](#top)** 
+
+```java
 //返回Tencent类的实例:MyQQShare.newInstance(this).getTencent();
 //检查是否有安装QQ
 MyQQShare.newInstance(this).isInstall()
-//在分享或者登录的Activity中配置,建议在父类统一配置,不配置会导致回调函数不执行
-@Override
-public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    MyQQActivityResult.onActivityResult(requestCode,resultCode,data);
-}
 
 MyQQWebHelper helper=new MyQQWebHelper(scene);
 //scene参数说明
@@ -459,17 +439,16 @@ MyQQShare.newInstance(this).shareWeb(helper, new MyQQShareListener() {
     }
 });
 ```
-| MyQQWebHelper(图文分享)   | 说明                                  |
-|---------------------------|---------------------------------------|
-| setTitle                  | 标题                                  |
-| setDescription            | 摘要                                  |
-| setUrl                    | 页面链接                              |
-| setImagePath              | 图片(手机本地图片路径或者网络图片url) |
-|                           |                                       |
+| MyQQWebHelper--(图文分享) | 说明                                  | 是否必填 |
+|-------------------------|---------------------------------------|:--------:|
+| setTitle                | 标题                                  |     √    |
+| setDescription          | 摘要                                  |     ×    |
+| setUrl                  | 页面链接                              |     √    |
+| setImagePath            | 图片(手机本地图片路径或者网络图片url) |     ×    |
   
-  | MyQQImageHelper(图片分享) | 说明                                  |
-|---------------------------|---------------------------------------|
-| setImagePath              | 需要分享的本地图片路径(不能是网络图片url)                | 
+  | MyQQImageHelper(图片分享) | 说明                                  |是否必填 |
+|---------------------------|---------------------------------------|:--------:|
+| setImagePath              | 需要分享的本地图片路径(不能是网络图片url)                |     √    |
   
   | MyQQAudioHelper(音乐分享) | 说明                                                | 是否必填 |
 |---------------------------|-----------------------------------------------------|:--------:|
@@ -482,16 +461,9 @@ MyQQShare.newInstance(this).shareWeb(helper, new MyQQShareListener() {
   
     
     
-# QQ登录
-```
-//在分享或者登录的Activity中配置,建议在父类统一配置,不配置会导致回调函数不执行
-@Override
-public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    MyQQActivityResult.onActivityResult(requestCode,resultCode,data);
-}
-
-
+#### <h2 id="qq2">QQ登录</h2>  
+**[返回目录](#top)** 
+```java
 /*建议放到application初始化*/
 MyQQShare.setAppId(appid);
 MyQQShare.newInstance(this).login(new MyQQLoginCallback() {
@@ -509,3 +481,14 @@ MyQQShare.newInstance(this).login(new MyQQLoginCallback() {
     }
 });
 ```
+
+| MyQQUserInfo | 返回用户信息说明                                                                                             |
+|--------------|--------------------------------------------------------------------------------------------------------------|
+| access_token | 接口调用凭证                                                                                                 |
+| pay_token    |                                                                                                              |
+| expires_in   | access_token接口调用凭证超时时间，单位（秒）                                                                 |
+| openid       | 授权用户唯一标识(同一账户,ios和android登录会返回不同openid)                                                  |
+| unionid      | 用户统一标识,ios和android数据未申请打通时为空,打通之后不为空,且同一用户(ios和android登录)返回的unionid是唯一的 |
+| nickname     | 用户昵称                                                                                                     |
+| userImageUrl | 用户头像                                                                                                     |
+| sex          | 性别"男"或"女"                                                                                               |
