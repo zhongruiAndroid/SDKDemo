@@ -9,14 +9,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sdklibrary.base.ShareParam;
 import com.sdklibrary.base.ali.pay.MyAliOrderBean;
 import com.sdklibrary.base.ali.pay.MyAliPay;
 import com.sdklibrary.base.ali.pay.MyAliPayCallback;
 import com.sdklibrary.base.ali.pay.PayResult;
-import com.sdklibrary.base.wx.pay.MyWXOrderBean;
-import com.sdklibrary.base.wx.pay.MyWXPay;
-import com.sdklibrary.base.wx.pay.MyWXPayCallback;
-import com.sdklibrary.base.ShareParam;
 import com.sdklibrary.base.qq.share.MyQQActivityResult;
 import com.sdklibrary.base.qq.share.MyQQLoginCallback;
 import com.sdklibrary.base.qq.share.MyQQShare;
@@ -26,9 +23,11 @@ import com.sdklibrary.base.qq.share.bean.MyQQAudioHelper;
 import com.sdklibrary.base.qq.share.bean.MyQQImageHelper;
 import com.sdklibrary.base.qq.share.bean.MyQQUserInfo;
 import com.sdklibrary.base.qq.share.bean.MyQQWebHelper;
+import com.sdklibrary.base.wx.inter.MyWXCallback;
+import com.sdklibrary.base.wx.pay.MyWXOrderBean;
+import com.sdklibrary.base.wx.pay.MyWXPay;
 import com.sdklibrary.base.wx.share.MyWXLoginCallback;
 import com.sdklibrary.base.wx.share.MyWXShare;
-import com.sdklibrary.base.wx.share.MyWXShareCallback;
 import com.sdklibrary.base.wx.share.MyWXUserInfo;
 import com.sdklibrary.base.wx.share.bean.MyWXImageHelper;
 import com.sdklibrary.base.wx.share.bean.MyWXTextHelper;
@@ -190,17 +189,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         helper.setUrl("www.baidu.com");
         helper.setTitle("分享标题");
         helper.setDescription("分享内容");
-        MyWXShare.newInstance(this).shareWeb(helper, new MyWXShareCallback() {
+        MyWXShare.newInstance(this).shareWeb(helper, new MyWXCallback() {
             @Override
-            public void shareSuccess() {
+            public void onSuccess() {
 
             }
             @Override
-            public void shareFail() {
+            public void onFail() {
 
             }
             @Override
-            public void shareCancel() {
+            public void onCancel() {
                 MyAliOrderBean a=new MyAliOrderBean();
                 MyWXOrderBean b=new MyWXOrderBean();
 
@@ -220,17 +219,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         //支付取消
                     }
                 });
-                MyWXPay.newInstance(null).startPay(null, new MyWXPayCallback() {
+                MyWXPay.newInstance(null).startPay(null, new MyWXCallback() {
                     @Override
-                    public void paySuccess() {
+                    public void onSuccess() {
                         //支付成功
                     }
                     @Override
-                    public void payFail() {
+                    public void onFail() {
                         //支付失败
                     }
                     @Override
-                    public void payCancel() {
+                    public void onCancel() {
                         //支付取消
                     }
                 });
@@ -431,32 +430,36 @@ timeStamp*//*
         helper.setTitle("网页标题");
         helper.setDescription("网页描述");
         helper.setBitmap(null);
-        MyWXShare.newInstance(this).shareAudio(helper, new MyWXShareCallback() {
+        MyWXShare.newInstance(this).shareAudio(helper, new MyWXCallback() {
             @Override
-            public void shareSuccess() {
+            public void onSuccess() {
 
             }
+
             @Override
-            public void shareFail() {
+            public void onFail() {
 
             }
+
             @Override
-            public void shareCancel() {
+            public void onCancel() {
 
             }
         });
 
-        MyWXShare.newInstance(this).shareWeb(helper, new MyWXShareCallback() {
+        MyWXShare.newInstance(this).shareWeb(helper,  new MyWXCallback() {
             @Override
-            public void shareSuccess() {
+            public void onSuccess() {
 
             }
+
             @Override
-            public void shareFail() {
+            public void onFail() {
 
             }
+
             @Override
-            public void shareCancel() {
+            public void onCancel() {
 
             }
         });
