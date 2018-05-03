@@ -2,17 +2,12 @@ package com.sdklibrary.base.ali.pay;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.alipay.sdk.app.PayTask;
-import com.github.rxbus.rxjava.MyFlowableSubscriber;
-import com.github.rxbus.rxjava.MyRx;
 
 import java.util.Map;
-
-import io.reactivex.FlowableEmitter;
 
 
 /**
@@ -46,7 +41,7 @@ public class MyAliPay {
         asyncTaskStart(myAliOrderBean,callback);
     }
     private void rxStart(final MyAliOrderBean myAliOrderBean, final MyAliPayCallback callback){
-        MyRx.start(new MyFlowableSubscriber<Map<String, String>>() {
+        /*MyRx.start(new MyFlowableSubscriber<Map<String, String>>() {
             @Override
             public void subscribe(@NonNull FlowableEmitter<Map<String, String>> flowableEmitter) {
                 final String orderInfo;
@@ -79,9 +74,9 @@ public class MyAliPay {
             @Override
             public void onNext(Map<String, String> result) {
                 PayResult payResult = new PayResult(result);
-                /**
+                *//**
                  对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
-                 */
+                 *//*
                 String resultInfo = payResult.getResult();// 同步返回需要验证的信息
                 String resultStatus = payResult.getResultStatus();
                 // 判断resultStatus 为9000则代表支付成功
@@ -103,7 +98,7 @@ public class MyAliPay {
                 super.onError(t);
                 callback.payFail();
             }
-        });
+        });*/
     }
     private void asyncTaskStart(final MyAliOrderBean myAliOrderBean, final MyAliPayCallback callback){
         PayAsyncTask payAsyncTask=new PayAsyncTask(callback);

@@ -7,7 +7,6 @@ import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
 
-import com.github.rxbus.MyDisposable;
 import com.sdklibrary.base.ali.pay.MyAliOrderBean;
 import com.sdklibrary.base.wx.MyWXHelper;
 import com.sdklibrary.base.wx.inter.MyWXCallback;
@@ -54,7 +53,7 @@ public class MyWXPay {
 //    private Map<String, String> resultunifiedorder;
     private StringBuffer sb;
     private MyWXOrderBean orderBean;
-    private MyDisposable payDisposable;
+//    private MyDisposable payDisposable;
 
 
     private static String appId;

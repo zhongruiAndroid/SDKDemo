@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.github.rxbus.MyDisposable;
 import com.google.gson.Gson;
 import com.sdklibrary.base.BaseShare;
 import com.sdklibrary.base.wx.MyWXHelper;
@@ -53,8 +52,8 @@ public class MyWXShare extends BaseShare {
     private IWXAPI api;
     private static String appId;
     private static String appSecret;
-    private MyDisposable disposable;
-    private MyDisposable loginDisposable;
+//    private MyDisposable disposable;
+//    private MyDisposable loginDisposable;
 
 
     public static String noInstallWXMsg = "亲,您还没有安装微信APP哦!";
