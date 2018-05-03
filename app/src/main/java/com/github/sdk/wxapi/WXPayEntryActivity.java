@@ -1,6 +1,6 @@
 package com.github.sdk.wxapi;
 
-import com.sdklibrary.base.pay.wxpay.MyWXPayEntryActivity;
+import com.sdklibrary.base.wx.pay.MyWXPayEntryActivity;
 
 /**
  * Created by Administrator on 2018/3/30.

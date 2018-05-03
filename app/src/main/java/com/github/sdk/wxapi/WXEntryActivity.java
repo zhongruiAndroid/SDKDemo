@@ -1,6 +1,6 @@
 package com.github.sdk.wxapi;
 
-import com.sdklibrary.base.share.wx.MyWXEntryActivity;
+import com.sdklibrary.base.wx.share.MyWXEntryActivity;
 
 /**
  * Created by Administrator on 2018/3/30.

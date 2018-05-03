@@ -9,31 +9,31 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sdklibrary.base.pay.alipay.MyAliOrderBean;
-import com.sdklibrary.base.pay.alipay.MyAliPay;
-import com.sdklibrary.base.pay.alipay.MyAliPayCallback;
-import com.sdklibrary.base.pay.alipay.PayResult;
-import com.sdklibrary.base.pay.wxpay.MyWXOrderBean;
-import com.sdklibrary.base.pay.wxpay.MyWXPay;
-import com.sdklibrary.base.pay.wxpay.MyWXPayCallback;
-import com.sdklibrary.base.share.ShareParam;
-import com.sdklibrary.base.share.qq.MyQQActivityResult;
-import com.sdklibrary.base.share.qq.MyQQLoginCallback;
-import com.sdklibrary.base.share.qq.MyQQShare;
-import com.sdklibrary.base.share.qq.MyQQShareListener;
-import com.sdklibrary.base.share.qq.bean.MyQQAppHelper;
-import com.sdklibrary.base.share.qq.bean.MyQQAudioHelper;
-import com.sdklibrary.base.share.qq.bean.MyQQImageHelper;
-import com.sdklibrary.base.share.qq.bean.MyQQUserInfo;
-import com.sdklibrary.base.share.qq.bean.MyQQWebHelper;
-import com.sdklibrary.base.share.wx.MyWXLoginCallback;
-import com.sdklibrary.base.share.wx.MyWXShare;
-import com.sdklibrary.base.share.wx.MyWXShareCallback;
-import com.sdklibrary.base.share.wx.MyWXUserInfo;
-import com.sdklibrary.base.share.wx.bean.MyWXImageHelper;
-import com.sdklibrary.base.share.wx.bean.MyWXTextHelper;
-import com.sdklibrary.base.share.wx.bean.MyWXVideoHelper;
-import com.sdklibrary.base.share.wx.bean.MyWXWebHelper;
+import com.sdklibrary.base.ali.pay.MyAliOrderBean;
+import com.sdklibrary.base.ali.pay.MyAliPay;
+import com.sdklibrary.base.ali.pay.MyAliPayCallback;
+import com.sdklibrary.base.ali.pay.PayResult;
+import com.sdklibrary.base.wx.pay.MyWXOrderBean;
+import com.sdklibrary.base.wx.pay.MyWXPay;
+import com.sdklibrary.base.wx.pay.MyWXPayCallback;
+import com.sdklibrary.base.ShareParam;
+import com.sdklibrary.base.qq.share.MyQQActivityResult;
+import com.sdklibrary.base.qq.share.MyQQLoginCallback;
+import com.sdklibrary.base.qq.share.MyQQShare;
+import com.sdklibrary.base.qq.share.MyQQShareListener;
+import com.sdklibrary.base.qq.share.bean.MyQQAppHelper;
+import com.sdklibrary.base.qq.share.bean.MyQQAudioHelper;
+import com.sdklibrary.base.qq.share.bean.MyQQImageHelper;
+import com.sdklibrary.base.qq.share.bean.MyQQUserInfo;
+import com.sdklibrary.base.qq.share.bean.MyQQWebHelper;
+import com.sdklibrary.base.wx.share.MyWXLoginCallback;
+import com.sdklibrary.base.wx.share.MyWXShare;
+import com.sdklibrary.base.wx.share.MyWXShareCallback;
+import com.sdklibrary.base.wx.share.MyWXUserInfo;
+import com.sdklibrary.base.wx.share.bean.MyWXImageHelper;
+import com.sdklibrary.base.wx.share.bean.MyWXTextHelper;
+import com.sdklibrary.base.wx.share.bean.MyWXVideoHelper;
+import com.sdklibrary.base.wx.share.bean.MyWXWebHelper;
 import com.tencent.tauth.UiError;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -461,4 +461,5 @@ timeStamp*//*
             }
         });
     }
+
 }

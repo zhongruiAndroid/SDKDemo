@@ -1,13 +1,14 @@
 package com.sdklibrary.base;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Instrumentation test, which will execute on an Android device.
@@ -22,5 +23,22 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.sdklibrary.base.test", appContext.getPackageName());
+    }
+    @Test
+    public void asdf() throws Exception {
+        myTask n=new myTask();
+        n.execute();
+    }
+    public class myTask extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try{
+                int a=1/0;
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 }
