@@ -294,7 +294,7 @@ timeStamp*//*
         helper.setTitle("文本标题");
         helper.setText("文本内容");
         helper.setDescription("文本描述");
-        MyWXShare.newInstance(this).shareText(helper);
+        MyWXShare.newInstance(this).shareText(helper,null);
     }
     public void img(){
         MyWXImageHelper helper=new MyWXImageHelper(ShareParam.friend);
