@@ -106,10 +106,6 @@ public class MyWXShare extends BaseShare {
      *
      * @param helper
      */
-    public void shareVideo(MyWXWebHelper helper) {
-        shareVideo(helper, null);
-    }
-
     public void shareVideo(MyWXWebHelper helper, MyWXCallback callback) {
         if (notShare(context, api)) {
             noInstallShareFail(callback);
@@ -142,10 +138,6 @@ public class MyWXShare extends BaseShare {
      *
      * @param helper
      */
-    public void shareVideo(MyWXVideoHelper helper) {
-        shareVideo(helper, null);
-    }
-
     public void shareVideo(MyWXVideoHelper helper, MyWXCallback callback) {
         if (notShare(context, api)) {
             noInstallShareFail(callback);
@@ -179,10 +171,6 @@ public class MyWXShare extends BaseShare {
      *
      * @param helper
      */
-    public void shareWeb(MyWXWebHelper helper) {
-        shareWeb(helper, null);
-    }
-
     public void shareWeb(MyWXWebHelper helper, final MyWXCallback callback) {
         if (notShare(context, api)) {
             noInstallShareFail(callback);
@@ -266,10 +254,6 @@ public class MyWXShare extends BaseShare {
      *
      * @param helper
      */
-    public void shareAudio(MyWXWebHelper helper) {
-        shareAudio(helper, null);
-    }
-
     public void shareAudio(MyWXWebHelper helper, MyWXCallback callback) {
         if (notShare(context, api)) {
             noInstallShareFail(callback);
@@ -305,9 +289,6 @@ public class MyWXShare extends BaseShare {
      *
      * @param helper
      */
-    public void shareAudio(MyWXVideoHelper helper) {
-        shareAudio(helper, null);
-    }
 
     public void shareAudio(MyWXVideoHelper helper, MyWXCallback callback) {
         if (notShare(context, api)) {
@@ -347,9 +328,6 @@ public class MyWXShare extends BaseShare {
      *
      * @param helper
      */
-    public void shareImage(MyWXImageHelper helper) {
-        shareImage(helper, null);
-    }
 
     public void shareImage(MyWXImageHelper helper, MyWXCallback callback) {
         if (notShare(context, api)) {
@@ -383,10 +361,7 @@ public class MyWXShare extends BaseShare {
      *
      * @param helper
      */
-    public void shareText(MyWXTextHelper helper) {
-        shareText(helper, null);
 
-    }
 
     public void shareText(MyWXTextHelper helper, MyWXCallback callback) {
         if (notShare(context, api)) {
@@ -450,9 +425,7 @@ public class MyWXShare extends BaseShare {
 
     /*******************************************************登录***********************************************************************/
 
-    public void login() {
-        login(null);
-    }
+
 
     public void login(final MyWXLoginCallback callback) {
         if (notShare(context, api)) {
