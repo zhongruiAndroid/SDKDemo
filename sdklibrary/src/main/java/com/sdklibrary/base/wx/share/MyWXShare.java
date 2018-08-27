@@ -413,12 +413,12 @@ public class MyWXShare extends BaseShare {
             }
             notShare = true;
         } else {
-            if (!api.isWXAppSupportAPI()) {
+            /*if (!api.isWXAppSupportAPI()) {
                 if (!TextUtils.isEmpty(notShareMsg)) {
                     Toast.makeText(context, "亲,当前版本不支持微信相关功能!", Toast.LENGTH_SHORT).show();
                 }
                 notShare = true;
-            }
+            }*/
         }
         return notShare;
     }
