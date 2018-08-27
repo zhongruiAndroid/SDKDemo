@@ -112,14 +112,14 @@ public class MyWXPay {
                 callback.onFail();
             }
         } else {
-            if (!api.isWXAppSupportAPI()) {
+           /* if (!api.isWXAppSupportAPI()) {
                 if(!TextUtils.isEmpty(notPayMsg)){
                     Toast.makeText(mContext, notPayMsg,Toast.LENGTH_SHORT).show();
                 }
                 if(callback!=null){
                     callback.onFail();
                 }
-            } else {
+            } else {*/
                 //用sign判断是否是服务器生成微信支付订单号和sign，
                 if(!TextUtils.isEmpty(bean.getSign())){
                     requestPayForWebSign(bean,callback);
@@ -127,7 +127,7 @@ public class MyWXPay {
                     PayAsyncTask payAsyncTask=new PayAsyncTask(callback);
                     payAsyncTask.execute();
                 }
-            }
+//            }
         }
     }
     /**
