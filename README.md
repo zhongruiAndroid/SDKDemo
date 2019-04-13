@@ -14,7 +14,11 @@
 [ ![Download](https://api.bintray.com/packages/zhongrui/mylibrary/sdklibrary/images/download.svg) ](https://bintray.com/zhongrui/mylibrary/sdklibrary/_latestVersion)<--版本号
 ```
 compile 'com.github:sdklibrary:版本号看上面'
-```
+```  
+
+### 如果本库对您有帮助,还希望支付宝扫一扫下面二维码,你我同时免费获取奖励金(非常感谢 Y(^-^)Y)
+![github](https://github.com/zhongruiAndroid/SomeImage/blob/master/image/small_ali.jpg?raw=true "github")  
+
 # <h2 id="zfb">支付宝支付</h2>
 
 ```xml
