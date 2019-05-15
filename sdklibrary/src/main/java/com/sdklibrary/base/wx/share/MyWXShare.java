@@ -12,6 +12,7 @@ import com.sdklibrary.base.BaseShare;
 import com.sdklibrary.base.wx.MyWXHelper;
 import com.sdklibrary.base.wx.inter.MyWXCallback;
 import com.sdklibrary.base.wx.share.bean.MyWXImageHelper;
+import com.sdklibrary.base.wx.share.bean.MyWXSmallProgramHelper;
 import com.sdklibrary.base.wx.share.bean.MyWXTextHelper;
 import com.sdklibrary.base.wx.share.bean.MyWXVideoHelper;
 import com.sdklibrary.base.wx.share.bean.MyWXWebHelper;
@@ -20,6 +21,7 @@ import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXImageObject;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXMiniProgramObject;
 import com.tencent.mm.opensdk.modelmsg.WXMusicObject;
 import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.modelmsg.WXVideoObject;
@@ -99,6 +101,36 @@ public class MyWXShare extends BaseShare {
       api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);*/
     private static String buildTransaction(final String type) {
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+    }
+
+
+    public void shareSmallProgram(MyWXSmallProgramHelper helper, MyWXCallback callback) {
+        if (notShare(context, api)) {
+            noInstallShareFail(callback);
+            return;
+        }
+        WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
+        miniProgramObj.webpageUrl = helper.getWebpageUrl(); // 兼容低版本的网页链接
+        miniProgramObj.miniprogramType = helper.getMiniprogramType();//WXMiniProgramObject.MINIPTOGRAM_TYPE_RELEASE;// 正式版:0，测试版:1，体验版:2
+        miniProgramObj.userName = helper.getUserName();     // 小程序原始id
+        miniProgramObj.path = helper.getPath();            //小程序页面路径
+        WXMediaMessage msg = new WXMediaMessage(miniProgramObj);
+        msg.title =helper.getTitle();                    // 小程序消息title
+        msg.description =helper.getDescription();               // 小程序消息desc
+        Bitmap bmp;
+        if (helper.getBitmap() == null) {
+            bmp = BitmapFactory.decodeResource(context.getResources(), helper.getBitmapResId());
+        } else {
+            bmp = helper.getBitmap();
+        }
+        msg.thumbData =  MyWXUtil.bmpToByteArray(bmp, true);              // 小程序消息封面图片，小于128k
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("miniProgram");
+        req.message = msg;
+        req.scene = SendMessageToWX.Req.WXSceneSession;  // 目前只支持会话
+        subscribeShare(callback);
+        api.sendReq(req);
     }
 
     /**
