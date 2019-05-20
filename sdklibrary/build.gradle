@@ -39,6 +39,7 @@ dependencies {
     compile 'cz.msebera.android:httpclient:4.4.1.2'
     compile 'com.google.code.gson:gson:2.8.2'
     //支付宝
+//    compile files('libs/alipaySdk-20180601.jar')
     compile files('libs/alipaySdk-20170725.jar')
     //qq分享登录
     compile files('libs/open_sdk_r5990_lite.jar')
