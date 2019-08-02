@@ -11,6 +11,7 @@ import com.sdklibrary.base.ShareParam;
 
 public class MyWXImageHelper extends ShareParam {
     private Bitmap bitmap;
+    private String imagePath;
     private int bitmapResId;
     private int dstWidth=150;
     private int dstHeight=150;
@@ -45,5 +46,13 @@ public class MyWXImageHelper extends ShareParam {
 
     public void setBitmapResId(@DrawableRes int bitmapResId) {
         this.bitmapResId = bitmapResId;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

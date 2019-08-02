@@ -372,7 +372,13 @@ public class MyWXShare extends BaseShare {
         } else {
             bmp = helper.getBitmap();
         }
-        WXImageObject imgObj = new WXImageObject(bmp);
+        WXImageObject imgObj = new WXImageObject();
+        if(TextUtils.isEmpty(helper.getImagePath())==false){
+            imgObj = new WXImageObject();
+            imgObj.setImagePath(helper.getImagePath());
+        }else{
+            imgObj = new WXImageObject(bmp);
+        }
 
         WXMediaMessage msg = new WXMediaMessage();
         msg.mediaObject = imgObj;
